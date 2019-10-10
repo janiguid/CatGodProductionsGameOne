@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scriptable Objects\InventoryData.cs" />
     <Compile Include="Assets\Scripts\InventoryController.cs" />
     <Compile Include="Assets\Scripts\InventoryUIManager.cs" />
+    <Compile Include="Assets\Scripts\ProgressTracker.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/janiguid/Desktop/Cat God Productions/CatGodProductionsGameOne/New Unity Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
