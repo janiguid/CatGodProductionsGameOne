@@ -60,6 +60,8 @@
      <Compile Include="Assets\Scripts\InventoryUIManager.cs" />
      <Compile Include="Assets\Scripts\ProgressTracker.cs" />
      <Compile Include="Assets\Scripts\RunnerBehavior.cs" />
+     <Compile Include="Assets\Scripts\RunnerInputDispatcher.cs" />
+     <Compile Include="Assets\Scripts\RunnerInputReceiver.cs" />
      <Compile Include="Assets\Scripts\RunnerManagerBehavior.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Jaime/Desktop/CatGodProductionsGameOne/New Unity Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

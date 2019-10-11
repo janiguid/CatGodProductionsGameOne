@@ -47,8 +47,8 @@ public class RunnerManagerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        neutralPosition = PlayAreaWidth()/4;
-        dashPosition = 3*PlayAreaWidth()/8;
+        neutralPosition = PlayAreaWidth()/4 - PlayAreaWidth()/2;
+        dashPosition = 3*PlayAreaWidth()/8 - PlayAreaWidth()/2;
         runnerBehaviors = new RunnerBehavior[runners.Length];
         for (int i = 0; i < runners.Length; ++i)
         {
@@ -122,17 +122,17 @@ public class RunnerManagerBehavior : MonoBehaviour
     public float TrackTop(int track)
     {
         track = ConstrainID(track);
-        return TrackHeight()*track;
+        return PlayAreaHeight()/2 - TrackHeight()*track;
     }
     public float TrackCenter(int track)
     {
         track = ConstrainID(track);
-        return TrackTop(track) + TrackHeight()/2;
+        return TrackTop(track) - TrackHeight()/2;
     }
     public float TrackBottom(int track)
     {
         track = ConstrainID(track);
-        return TrackTop(track) + TrackHeight();
+        return TrackTop(track) - TrackHeight();
     }
 
     /*  --NeutralX, NeutralY--
@@ -166,7 +166,7 @@ public class RunnerManagerBehavior : MonoBehaviour
             GameObject go = runners[who];
             if (go == null)
             {
-                return PlayAreaHeight()/2;
+                return 0;
             }
             else
             {
@@ -175,7 +175,7 @@ public class RunnerManagerBehavior : MonoBehaviour
         }
         else
         {
-            int track = ConstrainID(rb.Track());
+            int track = ConstrainID(rb.DestTrack());
             List<int> neighbors = OnTrack(track);
             int ordinal = -1;
             for (int i = 0; i< neighbors.Count; ++i)
@@ -192,9 +192,9 @@ public class RunnerManagerBehavior : MonoBehaviour
             }
             else
             {
-                return TrackTop(track) +
+                return TrackTop(track) -
                     (ordinal + 1)*TrackHeight()
-                    / (neighbors.Count + 1);
+                    / (neighbors.Count + 2);
             }
         }
     }
