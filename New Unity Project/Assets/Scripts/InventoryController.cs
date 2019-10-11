@@ -8,7 +8,6 @@ public class InventoryController : MonoBehaviour
     private int InventorySize = 3;
 
     public GameObject [] ItemList;
-    GameObject CurrentItem;
 
     public string[] testArray;
     public InventoryData MyData;
@@ -17,12 +16,13 @@ public class InventoryController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        ItemList = MyData.ItemList;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //RefreshData();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             UseItem();
@@ -38,6 +38,7 @@ public class InventoryController : MonoBehaviour
     void UseItem()
     {
         print("used item!");
+        print(ItemList[1].name);
     }
 
     void SwitchRight()
@@ -48,7 +49,6 @@ public class InventoryController : MonoBehaviour
         ItemList[2] = ItemList[1];
         ItemList[1] = ItemList[0];
         ItemList[0] = temp;
-
 
         RefreshData();
     }
@@ -70,9 +70,14 @@ public class InventoryController : MonoBehaviour
     void RefreshData()
     {
         //Maybe get the spriterenderers at the start so theres no need to keep getting each component
-        MyData.LeftSprite = ItemList[0].gameObject.GetComponent<SpriteRenderer>().sprite;
-        MyData.CenterSprite = ItemList[1].gameObject.GetComponent<SpriteRenderer>().sprite;
-        MyData.RightSprite = ItemList[2].gameObject.GetComponent<SpriteRenderer>().sprite;
+        //MyData.LeftSprite = ItemList[0].gameObject.GetComponent<SpriteRenderer>().sprite;
+        //MyData.CenterSprite = ItemList[1].gameObject.GetComponent<SpriteRenderer>().sprite;
+        //MyData.RightSprite = ItemList[2].gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        //print(MyData.LeftSprite.name);
+        //print(MyData.CenterSprite.name);
+        //print(MyData.RightSprite.name);
+        MyData.RefreshedData = false;
 
     }
 

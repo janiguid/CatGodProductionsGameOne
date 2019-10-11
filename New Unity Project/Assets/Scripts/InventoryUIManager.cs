@@ -5,11 +5,12 @@ using UnityEngine;
 public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer LeftItem;
+    private GameObject LeftItem;
     [SerializeField]
-    private SpriteRenderer CenterItem;
+    private GameObject CenterItem;
     [SerializeField]
-    private SpriteRenderer RightItem;
+    private GameObject RightItem;
+
 
 
     public InventoryData MyData;
@@ -22,8 +23,26 @@ public class InventoryUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LeftItem.sprite = MyData.LeftSprite;
-        CenterItem.sprite = MyData.CenterSprite;
-        RightItem.sprite = MyData.RightSprite;
+        RefreshUI();
+        if (MyData.RefreshedData == false)
+        {
+            RefreshUI();
+            print("swear to fkin god");
+
+        }
+    }
+
+    void RefreshUI()
+    {
+        //LeftItem.GetComponent<SpriteRenderer>().sprite = MyData.LeftSprite;
+        //CenterItem.GetComponent<SpriteRenderer>().sprite = MyData.CenterSprite;
+        //RightItem.GetComponent<SpriteRenderer>().sprite = MyData.RightSprite;
+
+        LeftItem.GetComponent<SpriteRenderer>().sprite = MyData.ItemList[0].gameObject.GetComponent<SpriteRenderer>().sprite;
+        CenterItem.GetComponent<SpriteRenderer>().sprite = MyData.ItemList[1].gameObject.GetComponent<SpriteRenderer>().sprite;
+        RightItem.GetComponent<SpriteRenderer>().sprite = MyData.ItemList[2].gameObject.GetComponent<SpriteRenderer>().sprite;
+
+
+        MyData.RefreshedData = true;
     }
 }

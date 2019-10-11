@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class InventoryData : ScriptableObject
 {
-    public Sprite LeftSprite;
-    public Sprite CenterSprite;
-    public Sprite RightSprite;
+    public GameObject[] ItemList;
+
+
+    public bool RefreshedData;
 }
