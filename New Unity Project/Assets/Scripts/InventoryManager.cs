@@ -13,6 +13,8 @@ public class InventoryManager : MonoBehaviour
 
     public RunnerInventory[] Inventories;
 
+    public GlobalItemData itemData;
+
     private static readonly string[][] controls =
     {
         new string[]

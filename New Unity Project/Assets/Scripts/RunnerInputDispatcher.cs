@@ -6,6 +6,7 @@ using UnityEngine;
 public class RunnerInputDispatcher : MonoBehaviour
 {
     private enum Controls {X, Y, Jump, Dash}
+    public int keyboardIsFor = 1;
     private static readonly string[][] controls =
     {
         new string[]
@@ -71,17 +72,20 @@ public class RunnerInputDispatcher : MonoBehaviour
     {
         for (int i = 0; i < receivers.Length; ++i)
         {
-            float x = Input.GetAxis(controls[i][(int) Controls.X]);
-            float y = Input.GetAxis(controls[i][(int) Controls.Y]);
-            bool jump =
-                Input.GetButtonDown(
-                    controls[i][(int) Controls.Jump]);
-            bool dash =
-                Input.GetButtonDown(
-                    controls[i][(int) Controls.Dash]);
-            receivers[i].SetAxes(x, y);
-            receivers[i].SetJump(jump);
-            receivers[i].SetDash(dash);
+            if (receivers[i] != null)
+            {
+                float x = Input.GetAxis(controls[i][(int) Controls.X]);
+                float y = Input.GetAxis(controls[i][(int) Controls.Y]);
+                bool jump =
+                    Input.GetButtonDown(
+                        controls[i][(int) Controls.Jump]);
+                bool dash =
+                    Input.GetButtonDown(
+                        controls[i][(int) Controls.Dash]);
+                receivers[i].SetAxes(x, y);
+                receivers[i].SetJump(jump);
+                receivers[i].SetDash(dash);
+            }
         }
         float keyX = 0.0f;
         float keyY = 0.0f;
@@ -104,7 +108,11 @@ public class RunnerInputDispatcher : MonoBehaviour
         if (keyX > 0.1 || keyX < -0.1
             || keyY > 0.1 || keyY < -0.1)
         {
-            receivers[0].SetAxes(keyX, keyY);
+            receivers[keyboardIsFor].SetAxes(keyX, keyY);
+        }
+        if (Input.GetKeyDown("space"))
+        {
+            receivers[keyboardIsFor].SetJump(true);
         }
     }
 }

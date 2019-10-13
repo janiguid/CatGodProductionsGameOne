@@ -9,19 +9,25 @@ public class RunnerBehavior : MonoBehaviour
     private RunnerInputReceiver input = null;
     private int runnerID = -1;
     private int destinationTrack = -1;
-    private bool alive = true;
+    public bool alive = true;
     private float height = 1.0f;
     private bool dashing = false;
     private bool jumping = false;
-    public float disadvantage = 0.0f;
-    private static readonly float stdJumpDuration = 10.0f;
-    private static readonly float stdDashDuration = 20.0f;
-    private float remainingJumpDuration = 0.0f;
+    private float disadvantage = 0.0f;
+    private static readonly float stdJumpDuration = 1.0f;
+    private static readonly float stdDashDuration = 2.0f;
+    public float remainingJumpDuration = 0.0f;
     private float remainingDashDuration = 0.0f;
     private static readonly float forwardRange = 2.0f;
     private static readonly float backwardRange = 1.0f;
-    private static readonly float percentAttractiveForce = 10.0f;
+    private static readonly float
+        percentHorizontalAttractiveForce = 5.0f;
+    private static readonly float
+        percentVerticalAttractiveForce = 5.0f;
+    private static readonly float
+        percentJumpAttractiveForce = 10.0f;
     private float horizontalEffort = 0.0f;
+    private Vector3 initialScale = Vector3.one;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +38,7 @@ public class RunnerBehavior : MonoBehaviour
             height = coll.bounds.size.y;
         }
         input = gameObject.GetComponent<RunnerInputReceiver>();
+        initialScale = gameObject.transform.localScale;
     }
 
     /*  --GrantRunnerID--
@@ -92,6 +99,7 @@ public class RunnerBehavior : MonoBehaviour
     { 
         float raw =
             (manager.PlayAreaHeight()/2
+                + manager.playAreaYOffset
                 - gameObject.transform.position.y)
             / manager.TrackHeight() - 0.5f;
         int rounded = (int) Math.Round(raw);
@@ -127,7 +135,11 @@ public class RunnerBehavior : MonoBehaviour
         changing tracks. */
     public bool OnTrack(int track)
     {
-        if (!ChangingTracks())
+        if (!Alive())
+        {
+            return false;
+        }
+        else if (!ChangingTracks())
         {
             return track == destinationTrack;
         }
@@ -281,7 +293,10 @@ public class RunnerBehavior : MonoBehaviour
                         gameObject.transform.position.y);
         //body.AddForce(vecdiff*percentAttractiveForce/100,
           //  ForceMode2D.Impulse);
-        Vector2 v = vecdiff*percentAttractiveForce/100;
+        Vector2 v = new Vector2(
+            vecdiff.x*percentHorizontalAttractiveForce/100,
+            vecdiff.y*percentVerticalAttractiveForce/100
+        );
         gameObject.transform.position =
             new Vector3(
                 gameObject.transform.position.x + v.x,
@@ -308,17 +323,20 @@ public class RunnerBehavior : MonoBehaviour
         {
             disadvantage = 0;
         }
-        ProcessInput();
-        Console.WriteLine("{0} {1}", AttractionPointX(),
-            AttractionPointY());
+        ProcessInput();/*
+        Console.WriteLine("{0} {1}",
+            AttractionPointX(),
+            AttractionPointY());*/
+        ScaleForJump();
     }
 
     private void ProcessInput()
     {
-        if (disadvantage > 0)
+        if (disadvantage > 0 || !Alive())
         {
             return;
         }
+        // horizontal movement
         float dx = input.X();
         if (dx > 0)
         {
@@ -328,6 +346,7 @@ public class RunnerBehavior : MonoBehaviour
         {
             horizontalEffort = dx*backwardRange;
         }
+        // vertical movement
         int oldDest = destinationTrack;
         float dy = input.Y();
         if (dy > 0.1)
@@ -342,6 +361,52 @@ public class RunnerBehavior : MonoBehaviour
             .GetComponent<RunnerBehavior>().Alive())
         {
             destinationTrack = oldDest;
+        }
+        // jumping
+        if (input.Jump() && !jumping)
+        {
+            BeginJump();
+        }
+    }
+
+    private void ScaleForJump()
+    {
+        Vector3 destScale;
+        if (jumping)
+        {
+            destScale = initialScale
+                * (remainingJumpDuration + stdJumpDuration)
+                / stdJumpDuration;
+        }
+        else
+        {
+            destScale = initialScale;
+        }
+        if (destScale.magnitude > initialScale.magnitude*1.35f)
+        {
+            destScale = initialScale*1.35f;
+        }
+        Vector3 scaleDiff = destScale
+            - gameObject.transform.localScale;
+        gameObject.transform.localScale += scaleDiff
+            * percentJumpAttractiveForce/100;
+    }
+
+    /*  --Pickup--
+        Adds a named item (see GlobalItemData Scriptable Object)
+        to this player's inventory at the central slot.
+        Whatever was there prior is deleted. */
+    public void Pickup(string what)
+    {
+        RunnerInventory inv = manager.GetInventory(runnerID);
+        if (inv != null)
+        {
+            if (inv.ItemList[1] != null)
+            {
+                Destroy(inv.ItemList[1]);
+            }
+            inv.ItemList[1] =
+                manager.GetItemData().MakeItemUIObject(what);
         }
     }
 }

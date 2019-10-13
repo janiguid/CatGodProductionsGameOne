@@ -37,14 +37,14 @@ public class RunnerInventory : MonoBehaviour
     }
 
     //Need to set array spot to null
-    void UseItem()
+    public void UseItem()
     {
         //Instantiate game object
     }
 
     //Takes inventory array and shift its 
     //elements to the right
-    void SwitchRight()
+    public void SwitchRight()
     {
         print("switched to the right");
 
@@ -57,7 +57,7 @@ public class RunnerInventory : MonoBehaviour
 
     //Takes inventory array and shift its 
     //elements to the right
-    void SwitchLeft()
+    public void SwitchLeft()
     {
         print("switched to the left");
 

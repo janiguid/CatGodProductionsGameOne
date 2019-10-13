@@ -14,6 +14,10 @@ public class RunnerManagerBehavior : MonoBehaviour
     private RunnerBehavior[] runnerBehaviors;
     private float neutralPosition;
     private float dashPosition;
+    public float playAreaYOffset = 0.0f;
+    private static readonly bool drawTrackBoundsForDebug = true;
+    private InventoryManager inventoryManager = null;
+    private RunnerInventory[] runnerInventories;
 
     /*  --PlayAreaHeight, PlayAreaWidth--
         Gets the dimensions of the game world.
@@ -21,11 +25,11 @@ public class RunnerManagerBehavior : MonoBehaviour
         for the implementations. */
     public float PlayAreaHeight()
     {
-        return Camera.main.orthographicSize*2.0f;
+        return Camera.main.orthographicSize*2.0f - playAreaYOffset;
     }
     public float PlayAreaWidth()
     {
-        return PlayAreaHeight()*Camera.main.aspect;
+        return Camera.main.orthographicSize*2.0f*Camera.main.aspect;
     }
 
     /*  --ConstrainID--
@@ -47,7 +51,7 @@ public class RunnerManagerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        neutralPosition = PlayAreaWidth()/4 - PlayAreaWidth()/2;
+        neutralPosition = PlayAreaWidth()/6 - PlayAreaWidth()/2;
         dashPosition = 3*PlayAreaWidth()/8 - PlayAreaWidth()/2;
         runnerBehaviors = new RunnerBehavior[runners.Length];
         for (int i = 0; i < runners.Length; ++i)
@@ -69,6 +73,29 @@ public class RunnerManagerBehavior : MonoBehaviour
                 {
                     runnerBehaviors[i].GrantRunnerID(i, this);
                 }
+            }
+        }
+        inventoryManager =
+            FindObjectOfType<InventoryManager>();
+        if (inventoryManager != null)
+        {
+            runnerInventories = new RunnerInventory[
+                inventoryManager.Inventories.Length];
+            if (runnerInventories.Length != runners.Length)
+            {
+                Console.Error.WriteLine(
+                    "WARN: Inventory count {0} does not match " +
+                    "runner count {1}.",
+                    runners.Length,
+                    runnerInventories.Length
+                );
+            }
+            for (int i = 0;
+                i < runnerInventories.Length;
+                ++i)
+            {
+                runnerInventories[i]
+                    = inventoryManager.Inventories[i];
             }
         }
     }
@@ -122,7 +149,7 @@ public class RunnerManagerBehavior : MonoBehaviour
     public float TrackTop(int track)
     {
         track = ConstrainID(track);
-        return PlayAreaHeight()/2 - TrackHeight()*track;
+        return PlayAreaHeight()/2 - TrackHeight()*track + playAreaYOffset;
     }
     public float TrackCenter(int track)
     {
@@ -146,7 +173,7 @@ public class RunnerManagerBehavior : MonoBehaviour
         RunnerBehavior rb = runnerBehaviors[who];
         if (rb == null || !rb.Alive())
         {
-            return 0.0f;
+            return -PlayAreaWidth();
         }
         else if (rb.Dashing())
         {
@@ -194,8 +221,64 @@ public class RunnerManagerBehavior : MonoBehaviour
             {
                 return TrackTop(track) -
                     (ordinal + 1)*TrackHeight()
-                    / (neighbors.Count + 2);
+                    / (neighbors.Count + 1);
             }
         }
+    }
+
+    private void DrawHorizontalLine(float y, float r, float g, float b)
+    {
+        Debug.DrawLine(
+            new Vector3(-PlayAreaWidth()/2, y, 0),
+            new Vector3(PlayAreaWidth()/2, y, 0),
+            new Color(r, g, b)
+        );
+    }
+
+    void FixedUpdate()
+    {
+        if (drawTrackBoundsForDebug)
+        {
+            for (int i = 0; i < runners.Length; ++i)
+            {
+                DrawHorizontalLine(TrackTop(i) - 0.05f,
+                    1.0f, 0.0f, 0.0f);
+                DrawHorizontalLine(TrackCenter(i),
+                    0.0f, 1.0f, 0.0f);
+                DrawHorizontalLine(TrackBottom(i) + 0.05f,
+                    0.0f, 0.0f, 1.0f);
+                if (!runnerBehaviors[i].Alive())
+                {
+                    for (int j = 0; j < 8; ++j)
+                    {
+                        DrawHorizontalLine(
+                            TrackTop(i) - TrackHeight()*(j + 1)/9,
+                            1.0f, 1.0f, 1.0f);
+                    }
+                }
+            }
+        }
+    }
+
+    public RunnerInventory GetInventory(int runnerID)
+    {
+        runnerID = ConstrainID(runnerID);
+        if (runnerID < runnerInventories.Length)
+        {
+            return runnerInventories[runnerID];
+        }
+        else
+        {
+            Console.Error.WriteLine(
+                "WARN: Tried to access a missing inventory " +
+                "for player {0}.",
+            runnerID);
+            return null;
+        }
+    }
+
+    public GlobalItemData GetItemData()
+    {
+        return inventoryManager.itemData;
     }
 }
