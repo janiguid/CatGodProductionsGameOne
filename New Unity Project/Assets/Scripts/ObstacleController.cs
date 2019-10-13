@@ -6,12 +6,11 @@ public class ObstacleController : MonoBehaviour
 {
     public float spawnInterval = 0.5f;
     public float currentSpeed = 3;
-    //NOTE: each object needs a weight, these need to be equal in length
+    //NOTE: each object needs a weight, these arrays need to be almost equal in length
+    //the last weight is the chance for nothing to spawn
     public GameObject[] generatableObjects;
-    public int[] generatableObjectWeights;
-    public Vector2 spawnpoint;
-    public Vector2 spawnpoint1;
-    public Vector2 spawnpoint2;
+    public float[] generatableObjectWeights;
+    public Vector2[] spawnpoints;
     
     private float timer;
    
@@ -24,10 +23,17 @@ public class ObstacleController : MonoBehaviour
         //so need a difficulty 
 
 
-        //need to normalize the generated object weights to be from 0 - 1000
+        //need to normalize the generated object weights to be from 0 - 1
         //so first add all the weights then multiply each weight by its proportion of total weights then multiply that by 1000
-
-        //whatever last option is gets auto gen'd to account for possible bad maths if nothing else got spawned
+        float totalW = 0;
+        float wSoFar = 0;
+        foreach (float w in generatableObjectWeights) {
+            totalW += w;
+        }
+        for (int i = 0; i < generatableObjectWeights.Length; i++) {
+            wSoFar += generatableObjectWeights[i];
+            generatableObjectWeights[i] = wSoFar / totalW;
+        }
         timer = spawnInterval;
     }
 
@@ -35,10 +41,24 @@ public class ObstacleController : MonoBehaviour
     void Update()
     {
         if (timer < 0) {
-            //the temporary great roulette wheel of justice
+            //the temporary (?) great roulette wheel of justice
             float r = Random.value;
-            GameObject obs = Instantiate(generatableObjects[0], transform.position, Quaternion.identity);
-            obs.GetComponent<SpawnablesController>().speed = currentSpeed;
+            for (int j = 0; j < generatableObjects.Length; j++) {
+                if (r <= generatableObjectWeights[j]) {
+                    Vector2 spawn = spawnpoints[0];
+                    r = Random.value * spawnpoints.Length;
+                    //randomize the spawn point too, this one is currently unweighted
+                    for (int i = 1; i <= spawnpoints.Length; i++) {
+                        if (r <= i) {
+                            spawn = spawnpoints[i-1];
+                            break;
+                        }
+                    }
+                    GameObject obs = Instantiate(generatableObjects[j], spawn, Quaternion.identity);
+                    obs.GetComponent<SpawnablesController>().speed = currentSpeed;
+                    break;
+                }
+            }
             timer = spawnInterval;
         }
         else {
