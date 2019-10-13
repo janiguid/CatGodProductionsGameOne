@@ -281,4 +281,20 @@ public class RunnerManagerBehavior : MonoBehaviour
     {
         return inventoryManager.itemData;
     }
+
+    public bool Alive(int runnerID)
+    {
+        return runnerBehaviors[runnerID].Alive();
+    }
+
+    public int TrackAt(float y)
+    {
+        float raw =
+            (PlayAreaHeight()/2
+                + playAreaYOffset
+                - y)
+            / TrackHeight() - 0.5f;
+        int rounded = (int) Math.Round(raw);
+        return ConstrainID(rounded);
+    }
 }

@@ -14,7 +14,7 @@ public class RunnerBehavior : MonoBehaviour
     private bool dashing = false;
     private bool jumping = false;
     private float disadvantage = 0.0f;
-    private static readonly float stdJumpDuration = 1.0f;
+    private static readonly float stdJumpDuration = 0.5f;
     private static readonly float stdDashDuration = 2.0f;
     public float remainingJumpDuration = 0.0f;
     private float remainingDashDuration = 0.0f;
@@ -96,14 +96,8 @@ public class RunnerBehavior : MonoBehaviour
         is considered to be "on" a track if they're physically
         within its region. */
     public int Track()
-    { 
-        float raw =
-            (manager.PlayAreaHeight()/2
-                + manager.playAreaYOffset
-                - gameObject.transform.position.y)
-            / manager.TrackHeight() - 0.5f;
-        int rounded = (int) Math.Round(raw);
-        return manager.ConstrainID(rounded);
+    {
+        return manager.TrackAt(gameObject.transform.position.y);
     }
 
     /*  --DestTrack--
@@ -157,6 +151,12 @@ public class RunnerBehavior : MonoBehaviour
         }
     }
 
+    private bool TrackInaccessible()
+    {
+        return !manager.runners[destinationTrack]
+                .GetComponent<RunnerBehavior>().Alive();
+    }
+
     /*  --MoveUpTrack, MoveDownTrack--
         Switches tracks. Using these functions, you can only switch
         to a track adjacent to the one you currently occupy
@@ -173,6 +173,10 @@ public class RunnerBehavior : MonoBehaviour
             destinationTrack =
                 manager.ConstrainID(destinationTrack - 1);
         }
+        if (TrackInaccessible())
+        {
+            destinationTrack = track;
+        }
     }
     public void MoveDownTrack()
     {
@@ -185,6 +189,10 @@ public class RunnerBehavior : MonoBehaviour
         {
             destinationTrack =
                 manager.ConstrainID(destinationTrack + 1);
+        }
+        if (TrackInaccessible())
+        {
+            destinationTrack = track;
         }
     }
 
@@ -281,7 +289,10 @@ public class RunnerBehavior : MonoBehaviour
         a disadvantageous impulse. */
     public void Knockback(float amount)
     {
-        disadvantage += amount;
+        if (!jumping)
+        {
+            disadvantage += amount;
+        }
         //body.AddForce(amount*Vector2.left, ForceMode2D.Impulse);
     }
 
@@ -328,10 +339,78 @@ public class RunnerBehavior : MonoBehaviour
             AttractionPointX(),
             AttractionPointY());*/
         ScaleForJump();
+        if (gameObject.transform.position.x <
+            -3*manager.PlayAreaWidth()/4)
+        {
+            Kill();
+        }
+        if (Alive())
+        {
+            ForceAccessibleTrack();
+        }
+    }
+
+    private void ForceAccessibleTrack()
+    {
+        if (TrackInaccessible())
+        {
+            int origTrack = destinationTrack;
+            if (UnityEngine.Random.value < 0.5f)
+            {
+                for (int i = 0; i < manager.runners.Length; ++i)
+                {
+                    destinationTrack = (origTrack + i)
+                        % manager.runners.Length;
+                    if (!TrackInaccessible())
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < manager.runners.Length; ++i)
+                {
+                    destinationTrack = (origTrack - i
+                            + manager.runners.Length)
+                        % manager.runners.Length;
+                    if (!TrackInaccessible())
+                    {
+                        break;
+                    }
+                }
+            }
+            if (TrackInaccessible())
+            {
+                Console.Error.WriteLine(
+                    "WARN: Player {0} was unable to find " +
+                    "an open track. This means everyone is dead. " +
+                    "Since this player is alive, this situation " +
+                    "should be impossible.",
+                runnerID);
+                Kill();
+            }
+        }
     }
 
     private void ProcessInput()
     {
+        // vertical movement
+        int oldDest = destinationTrack;
+        float dy = input.Y();
+        if (dy > 0.1)
+        {
+            MoveUpTrack();
+        }
+        else if (dy < -0.1)
+        {
+            MoveDownTrack();
+        }
+        // jumping
+        if (input.Jump() && !jumping)
+        {
+            BeginJump();
+        }
         if (disadvantage > 0 || !Alive())
         {
             return;
@@ -346,27 +425,6 @@ public class RunnerBehavior : MonoBehaviour
         {
             horizontalEffort = dx*backwardRange;
         }
-        // vertical movement
-        int oldDest = destinationTrack;
-        float dy = input.Y();
-        if (dy > 0.1)
-        {
-            MoveUpTrack();
-        }
-        else if (dy < -0.1)
-        {
-            MoveDownTrack();
-        }
-        if (!manager.runners[destinationTrack]
-            .GetComponent<RunnerBehavior>().Alive())
-        {
-            destinationTrack = oldDest;
-        }
-        // jumping
-        if (input.Jump() && !jumping)
-        {
-            BeginJump();
-        }
     }
 
     private void ScaleForJump()
@@ -374,12 +432,22 @@ public class RunnerBehavior : MonoBehaviour
         Vector3 destScale;
         if (jumping)
         {
+            gameObject.transform.position = new Vector3(
+                gameObject.transform.position.x,
+                gameObject.transform.position.y,
+                -1
+            );
             destScale = initialScale
                 * (remainingJumpDuration + stdJumpDuration)
                 / stdJumpDuration;
         }
         else
         {
+            gameObject.transform.position = new Vector3(
+                gameObject.transform.position.x,
+                gameObject.transform.position.y,
+                0
+            );
             destScale = initialScale;
         }
         if (destScale.magnitude > initialScale.magnitude*1.35f)

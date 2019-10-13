@@ -13,7 +13,9 @@ public class ObstacleController : MonoBehaviour
     public Vector2[] spawnpoints;
     
     private float timer;
-   
+
+    private RunnerManagerBehavior runman;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,20 @@ public class ObstacleController : MonoBehaviour
             generatableObjectWeights[i] = wSoFar / totalW;
         }
         timer = spawnInterval;
+        runman = FindObjectOfType<RunnerManagerBehavior>();
+    }
+
+    private List<Vector2> PrepareViableSpawnpoints()
+    {
+        List<Vector2> ret = new List<Vector2>();
+        foreach (Vector2 v2 in spawnpoints)
+        {
+            if (runman.Alive(runman.TrackAt(v2.y)))
+            {
+                ret.Add(v2);
+            }
+        }
+        return ret;
     }
 
     // Update is called once per frame
@@ -46,11 +62,12 @@ public class ObstacleController : MonoBehaviour
             for (int j = 0; j < generatableObjects.Length; j++) {
                 if (r <= generatableObjectWeights[j]) {
                     Vector2 spawn = spawnpoints[0];
-                    r = Random.value * spawnpoints.Length;
+                    List<Vector2> viableSpawnpoints = PrepareViableSpawnpoints();
+                    r = Random.value * viableSpawnpoints.Count;
                     //randomize the spawn point too, this one is currently unweighted
-                    for (int i = 1; i <= spawnpoints.Length; i++) {
+                    for (int i = 1; i <= viableSpawnpoints.Count; i++) {
                         if (r <= i) {
-                            spawn = spawnpoints[i-1];
+                            spawn = viableSpawnpoints[i-1];
                             break;
                         }
                     }
