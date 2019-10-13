@@ -7,7 +7,7 @@ public class RunnerInventory : MonoBehaviour
     [SerializeField]
     private int InventorySize = 3;
 
-    public GameObject [] ItemList;
+    public List<GameObject> ItemList;
     public InventoryData MyData;
 
 
@@ -40,32 +40,46 @@ public class RunnerInventory : MonoBehaviour
     public void UseItem()
     {
         //Instantiate game object
+        ItemList.RemoveAt(MyData.ItemCount - 1);
+
+        //ItemList[MyData.ItemCount - 1].gameObject.SetActive(false);
+
+        MyData.ItemCount--;
+
+        MyData.refreshed = false;
     }
 
     //Takes inventory array and shift its 
     //elements to the right
     public void SwitchRight()
     {
-        print("switched to the right");
 
-        GameObject temp = ItemList[2];
-        ItemList[2] = ItemList[1];
-        ItemList[1] = ItemList[0];
+        GameObject temp = ItemList[ItemList.Count - 1];
+
+        for(int i = ItemList.Count - 1; i != 0; --i)
+        {
+            ItemList[i] = ItemList[i - 1];
+        }
+
         ItemList[0] = temp;
 
+        MyData.refreshed = false;
     }
 
     //Takes inventory array and shift its 
     //elements to the right
     public void SwitchLeft()
     {
-        print("switched to the left");
-
         GameObject temp = ItemList[0];
-        ItemList[0] = ItemList[1];
-        ItemList[1] = ItemList[2];
-        ItemList[2] = temp;
 
+        for (int i = 0; i < ItemList.Count - 1; ++i)
+        {
+            ItemList[i] = ItemList[i + 1];
+        }
+
+        ItemList[ItemList.Count - 1] = temp;
+
+        MyData.refreshed = false;
     }
 
 
