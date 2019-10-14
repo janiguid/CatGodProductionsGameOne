@@ -26,9 +26,6 @@ public class InventoryData : ScriptableObject, ISerializationCallbackReceiver
 
     public void OnBeforeSerialize()
     {
-        for (int i = 0; i < InitialValues.Count; ++i)
-        {
-            ItemList[i] = InitialValues[i];
-        }
+
     }
 }
