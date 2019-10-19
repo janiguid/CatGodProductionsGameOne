@@ -23,26 +23,41 @@ public class RunnerInventory : MonoBehaviour
     // Use an item, switch right, or switch left
     public void UpdateInput(bool Swapping, bool Left, bool Right, bool Use)
     {
-
+        //I'm using item count because I can't check if a list is null
         if (MyData.ItemCount == 0) return;
+        //if (Use)
+        //{
+        //    UseItem();
+        //}
+        //else if (Swapping && Right)
+        //{
+        //    SwitchRight();
+        //}
+        //else if (Swapping && Left)
+        //{
+        //    SwitchLeft();
+        //}
+
+        //had to swap because of UI
         if (Use)
         {
             UseItem();
         }
         else if (Swapping && Right)
         {
-            SwitchRight();
+            
+            SwitchLeft();
         }
         else if (Swapping && Left)
         {
-            SwitchLeft();
+            SwitchRight();
         }
     }
 
     //Need to set array spot to null
     public void UseItem()
     {
-        Instantiate(ItemList[MyData.ItemCount - 1], PlayerSpawnPoint.transform);
+        //Instantiate(ItemList[MyData.ItemCount - 1], PlayerSpawnPoint.transform);
 
         //Instantiate game object
         ItemList.RemoveAt(MyData.ItemCount - 1);

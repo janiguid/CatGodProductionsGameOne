@@ -141,9 +141,7 @@ public class SelectionManager : MonoBehaviour
         for(int j = 0; j< controls.Length; ++j)
         {
 
-            //print("player " + j + " and player num is: " + playerInfos[j].GetPlayerNumber() );
             if (playerInfos[j].GetPlayerNumber() == -5 || playerInfos[j].Selected()) continue;
-           //print("no ones getting through this");
             if (Input.GetAxis(controls[j][0]) > 0)
             {
                 if(playerInfos[j].GetMove() == false && playerInfos[j].Index < 3)
@@ -179,6 +177,7 @@ public class SelectionManager : MonoBehaviour
                 print("attached the sprite");
                 PlayerDatas[j].PlayerSprite = SpriteList[playerInfos[j].Index];
                 playerInfos[j].SetSelected(true);
+                PlayerDatas[j].CharacterNumber = playerInfos[j].Index;
             }
 
         }
@@ -187,7 +186,6 @@ public class SelectionManager : MonoBehaviour
             if (Input.GetButtonDown(controls[i][3]) && playerInfos[i].GetPlayerNumber() == -5)
             {
                 playerInfos[i].SetPlayerNumber(i);
-                //print("new player num is: " + playerInfos[i].GetPlayerNumber());
                 playerInfos[i].ActivateBorder();
             }
         }

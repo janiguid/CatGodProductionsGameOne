@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: P2
   m_EditorClassIdentifier: 
   ItemList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5001145870538275734, guid: 20ca3eabc98cc574dae9c4e5d7ddc06b, type: 3}
+  - {fileID: 5001145870538275734, guid: 687a155c8dce67345aab7f9aa2d3a567, type: 3}
+  - {fileID: 5001145870538275734, guid: f4c153021e276ef4c9d88f62cca9c6ee, type: 3}
   ItemCount: 0
-  refreshed: 0
+  refreshed: 1

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3617958161001495588}
   - component: {fileID: 3617958161001495595}
   - component: {fileID: 3617958161001495589}
+  - component: {fileID: 9005310583736924607}
   - component: {fileID: 3617958161001495584}
   - component: {fileID: 3617958161001495591}
   m_Layer: 0
@@ -46,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b56ad35d7910bf40a1d3d9ab89bb92e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disadvantage: 0
+  alive: 1
+  remainingJumpDuration: 0
 --- !u!114 &3617958161001495589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +61,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0868cdbc7a9b9e943bc27e83b6f9d053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9005310583736924607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617958161001495594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2767cee65d12037449a056985dc277d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventorySize: 3
+  ItemList: []
+  MyData: {fileID: 0}
+  PlayerSpawnPoint: {fileID: 0}
 --- !u!212 &3617958161001495584
 SpriteRenderer:
   m_ObjectHideFlags: 0

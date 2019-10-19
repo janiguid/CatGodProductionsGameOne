@@ -8,6 +8,6 @@ public class PlayerData : ScriptableObject
 
     public Sprite PlayerSprite;
     public int PlayerHealth = 3;
-
+    public int CharacterNumber;
 
 }
