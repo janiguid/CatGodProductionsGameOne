@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 4055235864223033421}
   - component: {fileID: 1689585213950054783}
   - component: {fileID: 9029063601417113727}
-  - component: {fileID: 5039314042405441922}
   - component: {fileID: 131117730146226292}
-  - component: {fileID: -3794922117914742151}
+  - component: {fileID: 1539961660897604682}
   m_Layer: 0
   m_Name: SpikeObstacle
   m_TagString: Obstacle
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5001145870538275734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.3769, y: 0.6341, z: 0}
-  m_LocalScale: {x: 1.0468, y: 0.9733, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -110,19 +109,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2750747, y: 1.28}
   m_EdgeRadius: 0
---- !u!114 &5039314042405441922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5001145870538275734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09c6eef93cf96cb4b9232d1eaf9f1a54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockbackDistance: 3
 --- !u!50 &131117730146226292
 Rigidbody2D:
   serializedVersion: 4
@@ -144,7 +130,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-3794922117914742151
+--- !u!114 &1539961660897604682
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,3 +143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  spawnpointCount: 3
+  jumpable: 1
+  knockbackDistance: 3

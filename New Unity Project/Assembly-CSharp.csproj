@@ -62,13 +62,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FinishLine.cs" />
     <Compile Include="Assets\Scriptable Objects\GlobalItemData.cs" />
-    <Compile Include="Assets\Scriptable Objects\InventoryData.cs" />
+    <Compile Include="Assets\Scriptable Objects\Inventory\InventoryData.cs" />
+    <Compile Include="Assets\Scriptable Objects\Player Information\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\BoulderObstacle.cs" />
+    <Compile Include="Assets\Scripts\Character Selection Screen\SelectionManager.cs" />
+    <Compile Include="Assets\Scripts\Gameplay\GameStarter.cs" />
     <Compile Include="Assets\Scripts\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\InventoryUIManager.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />
+    <Compile Include="Assets\Scripts\Main Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\ObstacleController.cs" />
     <Compile Include="Assets\Scripts\ProgressTracker.cs" />
+    <Compile Include="Assets\Scripts\projectile.cs" />
     <Compile Include="Assets\Scripts\RunnerBehavior.cs" />
     <Compile Include="Assets\Scripts\RunnerInputDispatcher.cs" />
     <Compile Include="Assets\Scripts\RunnerInputReceiver.cs" />
@@ -76,6 +83,24 @@
     <Compile Include="Assets\Scripts\RunnerManagerBehavior.cs" />
     <Compile Include="Assets\Scripts\SpawnablesController.cs" />
     <Compile Include="Assets\Scripts\SpikeObstacle.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/janiguid/Desktop/Cat God Productions/CatGodProductionsGameOne/New Unity Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -96,6 +121,9 @@
     </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/janiguid/Desktop/Cat God Productions/CatGodProductionsGameOne/New Unity Project/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>C:/Users/janiguid/Desktop/Cat God Productions/CatGodProductionsGameOne/New Unity Project/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/janiguid/Desktop/Cat God Productions/CatGodProductionsGameOne/New Unity Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>

@@ -24,7 +24,10 @@ public class InventoryUIManager : MonoBehaviour
         for (int i = 0; i < 3; ++i)
         {
             Items[i].GetComponent<SpriteRenderer>().sprite = empty.gameObject.GetComponent<SpriteRenderer>().sprite;
-            //Items[i].transform.position = new Vector2(gameObject.transform.position.y + (InventorySize / 3) + spacing*i, gameObject.transform.position.y);
+
+            float finalX = gameObject.transform.localPosition.x + (InventorySize / 3) + spacing * i;
+
+            Items[i].transform.localPosition = new Vector2(finalX - ((InventorySize / 3) + spacing), gameObject.transform.localPosition.y);
         }
 
 
@@ -38,7 +41,7 @@ public class InventoryUIManager : MonoBehaviour
         {
             RefreshUI();
         }
-        
+
 
     }
 
@@ -56,7 +59,14 @@ public class InventoryUIManager : MonoBehaviour
             Items[i].GetComponent<SpriteRenderer>().sprite = MyData.ItemList[i].gameObject.GetComponent<SpriteRenderer>().sprite;
         }
 
-        Highlight.gameObject.transform.position = new Vector3(Items[MyData.ItemCount - 1].transform.position.x, Items[Items.Count - 1].transform.position.y, 1);
+        if(MyData.ItemCount > 0)
+        {
+            Highlight.gameObject.transform.position = new Vector3(Items[MyData.ItemCount - 1].transform.position.x, Items[Items.Count - 1].transform.position.y, 1);
+        }
+        
+        
+
+        Recenter();
 
         MyData.refreshed = true;
     }
@@ -64,7 +74,27 @@ public class InventoryUIManager : MonoBehaviour
     //Recenter objects when an object is used
     void Recenter()
     {
+        float CenterAdjustment = 0;
+        if (MyData.ItemCount % 2 == 0 )
+        {
+            CenterAdjustment = ((InventorySize / 3) + spacing) / 2;
+        }
+        else
+        {
+            CenterAdjustment = ((InventorySize / 3) + spacing);
+        }
+             
+        for (int i = 0; i < MyData.ItemCount; ++i)
+        {
 
+            float finalX = gameObject.transform.localPosition.x + (InventorySize / 3) + spacing * i;
+
+            if (MyData.ItemCount == 1) finalX = CenterAdjustment = 0;
+            Items[i].transform.localPosition = new Vector2(finalX - CenterAdjustment, gameObject.transform.localPosition.y);
+        }
+
+        if (MyData.ItemCount == 0) return;
+        Highlight.gameObject.transform.position = new Vector3(Items[MyData.ItemCount - 1].transform.position.x, Items[Items.Count - 1].transform.position.y, 1);
     }
 
 }

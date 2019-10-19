@@ -10,6 +10,7 @@ public class RunnerInventory : MonoBehaviour
     public List<GameObject> ItemList;
     public InventoryData MyData;
 
+    public Transform PlayerSpawnPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class RunnerInventory : MonoBehaviour
     // Use an item, switch right, or switch left
     public void UpdateInput(bool Swapping, bool Left, bool Right, bool Use)
     {
+        if (MyData.ItemCount <= 0) return;
         if (Use)
         {
             UseItem();
@@ -39,10 +41,11 @@ public class RunnerInventory : MonoBehaviour
     //Need to set array spot to null
     public void UseItem()
     {
+        Instantiate(ItemList[MyData.ItemCount - 1], PlayerSpawnPoint.transform);
         //Instantiate game object
         ItemList.RemoveAt(MyData.ItemCount - 1);
 
-        //ItemList[MyData.ItemCount - 1].gameObject.SetActive(false);
+        
 
         MyData.ItemCount--;
 
@@ -53,7 +56,7 @@ public class RunnerInventory : MonoBehaviour
     //elements to the right
     public void SwitchRight()
     {
-
+        
         GameObject temp = ItemList[ItemList.Count - 1];
 
         for(int i = ItemList.Count - 1; i != 0; --i)
