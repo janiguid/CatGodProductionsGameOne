@@ -68,6 +68,8 @@ public class InventoryUIManager : MonoBehaviour
 
         Recenter();
 
+        Recenter();
+
         MyData.refreshed = true;
     }
 
@@ -88,6 +90,7 @@ public class InventoryUIManager : MonoBehaviour
         {
 
             float finalX = gameObject.transform.localPosition.x + (InventorySize / 3) + spacing * i;
+
 
             if (MyData.ItemCount == 1) finalX = CenterAdjustment = 0;
             Items[i].transform.localPosition = new Vector2(finalX - CenterAdjustment, gameObject.transform.localPosition.y);

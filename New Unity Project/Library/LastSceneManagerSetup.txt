@@ -1,5 +1,13 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Character Selection.unity
+=======
+<<<<<<< HEAD
+- path: Assets/Scenes/AgentTestScene.unity
+=======
+- path: Assets/Scenes/Main Menu.unity
+>>>>>>> 499d0b5c07f846d2c4c017e4dc39243b347fca4b
+>>>>>>> b435c10d8a9e8ad6ddda15780866838b7ce273db
   isLoaded: 1
   isActive: 1
   isSubScene: 0

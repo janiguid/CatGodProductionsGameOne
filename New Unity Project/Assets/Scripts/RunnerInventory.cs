@@ -23,7 +23,8 @@ public class RunnerInventory : MonoBehaviour
     // Use an item, switch right, or switch left
     public void UpdateInput(bool Swapping, bool Left, bool Right, bool Use)
     {
-        if (MyData.ItemCount <= 0) return;
+
+        if (MyData.ItemCount == 0) return;
         if (Use)
         {
             UseItem();
@@ -42,6 +43,7 @@ public class RunnerInventory : MonoBehaviour
     public void UseItem()
     {
         Instantiate(ItemList[MyData.ItemCount - 1], PlayerSpawnPoint.transform);
+
         //Instantiate game object
         ItemList.RemoveAt(MyData.ItemCount - 1);
 
