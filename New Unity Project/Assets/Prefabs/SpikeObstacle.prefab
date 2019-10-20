@@ -146,3 +146,5 @@ MonoBehaviour:
   spawnpointCount: 3
   jumpable: 1
   knockbackDistance: 3
+  damage: 2
+  breakable: 1

@@ -13,7 +13,7 @@ public class RunnerManagerBehavior : MonoBehaviour
     public GameObject[] runners;
     private RunnerBehavior[] runnerBehaviors;
     private float neutralPosition;
-    private float dashPosition;
+    //private float dashPosition;
     public float playAreaYOffset = 0.0f;
     private static readonly bool drawTrackBoundsForDebug = true;
     private InventoryManager inventoryManager = null;
@@ -52,7 +52,7 @@ public class RunnerManagerBehavior : MonoBehaviour
     void Start()
     {
         neutralPosition = PlayAreaWidth()/6 - PlayAreaWidth()/2;
-        dashPosition = 3*PlayAreaWidth()/8 - PlayAreaWidth()/2;
+        //dashPosition = 3*PlayAreaWidth()/8 - PlayAreaWidth()/2;
         runnerBehaviors = new RunnerBehavior[runners.Length];
         for (int i = 0; i < runners.Length; ++i)
         {
@@ -175,10 +175,10 @@ public class RunnerManagerBehavior : MonoBehaviour
         {
             return -PlayAreaWidth();
         }
-        else if (rb.Dashing())
+        /*else if (rb.Dashing())
         {
             return dashPosition;
-        }
+        }*/
         else
         {
             return neutralPosition;

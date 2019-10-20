@@ -144,5 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   spawnpointCount: 2
-  jumpable: 1
+  jumpable: 0
   knockbackDistance: 3
+  damage: 0

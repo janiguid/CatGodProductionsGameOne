@@ -8,22 +8,49 @@ public class SpawnablesController : MonoBehaviour {
     public int spawnpointCount = 3;
     public bool jumpable = true;
     public float knockbackDistance = 1f;
+    public float damage = 0f;
+    public bool breakable = true;
+    private float timeToDestroy = 2f;
+    private bool destroying = false;
     //speed will be modified by the obstacle controller too. 
     void Update() {
         transform.Translate(Vector2.left * speed * Time.deltaTime);
+        if (destroying)
+        {
+            timeToDestroy -= Time.deltaTime;
+            if (timeToDestroy <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
     void OnBecameInvisible() {
-        Destroy(gameObject);
+        destroying = true;
     }
     void killObstacle() {
         //wanna have like a particle emitter effect maybe?
+        Destroy(gameObject);
     }
     void OnTriggerEnter2D(Collider2D pc) {
     //for the types that slow all players, will need to access all the players somehow
         if (pc.CompareTag("Player")) {
+            RunnerBehavior rb = pc.GetComponent<RunnerBehavior>();
             // if the obstacle knocks back only one player
             // need the name of the script for this to work right
-            pc.GetComponent<RunnerBehavior>().Knockback(knockbackDistance);
+            if (breakable && rb.Dashing())
+            {
+                killObstacle();
+            }
+            else if (jumpable)
+            {
+                rb.Knockback(knockbackDistance);
+                rb.Damage(damage);
+            }
+            else
+            {
+                rb.AerialKnockback(knockbackDistance);
+                rb.AerialDamage(damage);
+            }
             // Debug.Log("Knocked back " + knockbackDistance);
             // if the obstacle knocks back or did something to all the players --> grab all the tagged players 
             // GameObject[] players;

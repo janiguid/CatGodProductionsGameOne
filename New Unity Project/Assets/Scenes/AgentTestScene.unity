@@ -903,6 +903,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: P2 Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 3452706710793744217, guid: 2cf9f7accbf350247979b046b8c0d90c,
+        type: 3}
+      propertyPath: MyData
+      value: 
+      objectReference: {fileID: 11400000, guid: a393c60cfef093748b76786e69a07be6,
+        type: 2}
     - target: {fileID: 3452706710793744216, guid: 2cf9f7accbf350247979b046b8c0d90c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -974,12 +980,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 557990717}
     - target: {fileID: 3452706710793744198, guid: 2cf9f7accbf350247979b046b8c0d90c,
-        type: 3}
-      propertyPath: MyData
-      value: 
-      objectReference: {fileID: 11400000, guid: a393c60cfef093748b76786e69a07be6,
-        type: 2}
-    - target: {fileID: 3452706710793744217, guid: 2cf9f7accbf350247979b046b8c0d90c,
         type: 3}
       propertyPath: MyData
       value: 
@@ -1721,6 +1721,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: P3 Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 3452706710793744217, guid: 2cf9f7accbf350247979b046b8c0d90c,
+        type: 3}
+      propertyPath: MyData
+      value: 
+      objectReference: {fileID: 11400000, guid: f902d5a2ba0c086418feaadbac06556a,
+        type: 2}
     - target: {fileID: 3452706710793744216, guid: 2cf9f7accbf350247979b046b8c0d90c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1792,12 +1798,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2064084249}
     - target: {fileID: 3452706710793744198, guid: 2cf9f7accbf350247979b046b8c0d90c,
-        type: 3}
-      propertyPath: MyData
-      value: 
-      objectReference: {fileID: 11400000, guid: f902d5a2ba0c086418feaadbac06556a,
-        type: 2}
-    - target: {fileID: 3452706710793744217, guid: 2cf9f7accbf350247979b046b8c0d90c,
         type: 3}
       propertyPath: MyData
       value: 
@@ -2676,5 +2676,10 @@ PrefabInstance:
       propertyPath: runners.Array.data[2]
       value: 
       objectReference: {fileID: 1656920299}
+    - target: {fileID: 3858760563928504205, guid: 675bbbe2b1496d1428e6e6206bb3028f,
+        type: 3}
+      propertyPath: keyboardIsFor
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 675bbbe2b1496d1428e6e6206bb3028f, type: 3}

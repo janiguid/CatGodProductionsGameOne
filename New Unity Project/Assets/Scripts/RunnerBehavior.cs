@@ -11,34 +11,46 @@ public class RunnerBehavior : MonoBehaviour
     private int destinationTrack = -1;
     public bool alive = true;
     private float height = 1.0f;
+    private float width = 1.0f;
     private bool dashing = false;
     private bool jumping = false;
     private float disadvantage = 0.0f;
     private static readonly float stdJumpDuration = 0.5f;
-    private static readonly float stdDashDuration = 2.0f;
+    private static readonly float stdDashDuration = 0.2f;
+    private bool usedDashSinceRestore = false;
+    private static readonly float dashCutoff = 2.0f;
     public float remainingJumpDuration = 0.0f;
     private float remainingDashDuration = 0.0f;
-    private static readonly float forwardRange = 2.0f;
-    private static readonly float backwardRange = 1.0f;
+    private static readonly float forwardRange = 12.0f;
+    private static readonly float backwardRange = 3.0f;
     private static readonly float
-        percentHorizontalAttractiveForce = 5.0f;
+        percentHorizontalAttractiveForce = 2.0f;
     private static readonly float
         percentVerticalAttractiveForce = 5.0f;
     private static readonly float
+        stdSwitchCooldown = 0.5f;
+    private float switchCooldown = 0.0f;
+    private static readonly float
         percentJumpAttractiveForce = 10.0f;
     private float horizontalEffort = 0.0f;
-    private Vector3 initialScale = Vector3.one;
+    private Vector3 initialScale = Vector3.one*0.8f;
+    public float maxHealth = 5.0f;
+    private float health;
+    private SpriteRenderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
+        health = maxHealth;
         Collider2D coll = gameObject.GetComponent<Collider2D>();
         if (coll != null)
         {
             height = coll.bounds.size.y;
+            width = coll.bounds.size.x;
         }
         input = gameObject.GetComponent<RunnerInputReceiver>();
-        initialScale = gameObject.transform.localScale;
+        initialScale = gameObject.transform.localScale*0.8f;
+        rend = GetComponent<SpriteRenderer>();
     }
 
     /*  --GrantRunnerID--
@@ -88,6 +100,8 @@ public class RunnerBehavior : MonoBehaviour
     public void Resurrect()
     {
         alive = true;
+        health = maxHealth;
+        disadvantage = 0;
     }
 
     /*  --Track--
@@ -163,6 +177,7 @@ public class RunnerBehavior : MonoBehaviour
         or cancel such a switch already in progress. */
     public void MoveUpTrack()
     {
+        if (switchCooldown > 0) return;
         int track = Track();
         if (track < destinationTrack)
         {
@@ -177,9 +192,14 @@ public class RunnerBehavior : MonoBehaviour
         {
             destinationTrack = track;
         }
+        else
+        {
+            switchCooldown = stdSwitchCooldown;
+        }
     }
     public void MoveDownTrack()
     {
+        if (switchCooldown > 0) return;
         int track = Track();
         if (track > destinationTrack)
         {
@@ -193,6 +213,10 @@ public class RunnerBehavior : MonoBehaviour
         if (TrackInaccessible())
         {
             destinationTrack = track;
+        }
+        else
+        {
+            switchCooldown = stdSwitchCooldown;
         }
     }
 
@@ -227,11 +251,16 @@ public class RunnerBehavior : MonoBehaviour
     {
         dashing = true;
         remainingDashDuration = stdDashDuration;
+        usedDashSinceRestore = true;
     }
     public void EndDash()
     {
         dashing = false;
         remainingDashDuration = 0;
+    }
+    public void RestoreDash()
+    {
+        usedDashSinceRestore = false;
     }
 
     /*  --BeginJump, EndJump--
@@ -261,6 +290,7 @@ public class RunnerBehavior : MonoBehaviour
     {
         dashing = true;
         remainingDashDuration += d;
+        usedDashSinceRestore = true;
     }
 
     /*  --Manager--
@@ -295,6 +325,21 @@ public class RunnerBehavior : MonoBehaviour
         }
         //body.AddForce(amount*Vector2.left, ForceMode2D.Impulse);
     }
+    public void AerialKnockback(float amount)
+    {
+        disadvantage += amount;
+    }
+    public void Damage(float amount)
+    {
+        if (!jumping)
+        {
+            health -= amount;
+        }
+    }
+    public void AerialDamage(float amount)
+    {
+        health -= amount;
+    }
 
     void FixedUpdate()
     {
@@ -304,9 +349,15 @@ public class RunnerBehavior : MonoBehaviour
                         gameObject.transform.position.y);
         //body.AddForce(vecdiff*percentAttractiveForce/100,
           //  ForceMode2D.Impulse);
+        float phaf = percentHorizontalAttractiveForce;
+        if (disadvantage > 0)
+        {
+            phaf *= 1.5f;
+        }
+        float pvaf = percentVerticalAttractiveForce;
         Vector2 v = new Vector2(
-            vecdiff.x*percentHorizontalAttractiveForce/100,
-            vecdiff.y*percentVerticalAttractiveForce/100
+            vecdiff.x*phaf/100,
+            vecdiff.y*pvaf/100
         );
         gameObject.transform.position =
             new Vector3(
@@ -329,6 +380,11 @@ public class RunnerBehavior : MonoBehaviour
             remainingDashDuration = 0;
             dashing = false;
         }
+        switchCooldown -= Time.deltaTime;
+        if (switchCooldown <= 0)
+        {
+            switchCooldown = 0;
+        }
         disadvantage -= Time.deltaTime*4;
         if (disadvantage <= 0)
         {
@@ -339,8 +395,17 @@ public class RunnerBehavior : MonoBehaviour
             AttractionPointX(),
             AttractionPointY());*/
         ScaleForJump();
-        if (gameObject.transform.position.x <
-            -3*manager.PlayAreaWidth()/4)
+        RotateForDash();
+        SetColors();
+        if (gameObject.transform.position.x
+            < manager.NeutralX(runnerID) + dashCutoff)
+        {
+            RestoreDash();
+        }
+        if ((gameObject.transform.position.x <
+                -3*manager.PlayAreaWidth()/4
+                && disadvantage > 0)
+            || health <= 0)
         {
             Kill();
         }
@@ -407,9 +472,13 @@ public class RunnerBehavior : MonoBehaviour
             MoveDownTrack();
         }
         // jumping
-        if (input.Jump() && !jumping)
+        if (input.Jump() && !jumping && !dashing)
         {
             BeginJump();
+        }
+        if (input.Dash() && !jumping && !dashing && !usedDashSinceRestore)
+        {
+            BeginDash();
         }
         if (disadvantage > 0 || !Alive())
         {
@@ -459,6 +528,33 @@ public class RunnerBehavior : MonoBehaviour
         gameObject.transform.localScale += scaleDiff
             * percentJumpAttractiveForce/100;
     }
+    private void RotateForDash()
+    {
+        if (dashing)
+        {
+            transform.rotation = Quaternion.Euler(Vector3.forward
+                * 360*remainingDashDuration/stdDashDuration);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
+    }
+    private void SetColors()
+    {
+        float r = 1.0f;
+        float g = 1.0f;
+        float b = 1.0f;
+        float a = 1.0f;
+        float gbCeil = health/maxHealth;
+        if (usedDashSinceRestore)
+        {
+            a = 0.35f;
+        }
+        g *= gbCeil;
+        b *= gbCeil;
+        rend.color = new Color(r, g, b, a);
+    }
 
     /*  --Pickup--
         Adds a named item (see GlobalItemData Scriptable Object)
@@ -476,5 +572,40 @@ public class RunnerBehavior : MonoBehaviour
             inv.ItemList[1] =
                 manager.GetItemData().MakeItemUIObject(what);
         }
+    }
+    void OnTriggerStay2D(Collider2D coll)
+    {
+        GameObject gobj = coll.gameObject;
+        SpawnablesController spawn = gobj.GetComponent<SpawnablesController>();
+        if (spawn != null
+            && !(spawn.jumpable && jumping)
+            && spawn.knockbackDistance > 0
+            && transform.position.x - gobj.transform.position.x < width/2
+            && Math.Abs(transform.position.y - gobj.transform.position.y)
+                < coll.bounds.size.y/2)
+        {
+            transform.position = new Vector3(
+                gobj.transform.position.x - (coll.bounds.size.x/2 + width/2),
+                transform.position.y, transform.position.z
+            );
+            if (disadvantage < spawn.knockbackDistance)
+            {
+                disadvantage = spawn.knockbackDistance;
+            }
+        }
+    }
+
+    public float Health()
+    {
+        return health;
+    }
+    public float MaxHealth()
+    {
+        return maxHealth;
+    }
+    public void RecoverHealth(float h)
+    {
+        health += h;
+        if (health > maxHealth) health = maxHealth;
     }
 }
