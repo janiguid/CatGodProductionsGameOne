@@ -7,11 +7,13 @@ public class SpawnablesController : MonoBehaviour {
     public float speed = 1;
     public int spawnpointCount = 3;
     public bool jumpable = true;
+    public bool destroying = false;
     public float knockbackDistance = 1f;
     public float damage = 0f;
     public bool breakable = true;
-    private float timeToDestroy = 2f;
-    private bool destroying = false;
+    private float timeToDestroy = 0.35f;
+    public int lane;
+    
     //speed will be modified by the obstacle controller too. 
     void Update() {
         transform.Translate(Vector2.left * speed * Time.deltaTime);
@@ -24,14 +26,19 @@ public class SpawnablesController : MonoBehaviour {
             }
         }
     }
+    //this can just be done as soon as they're offscreen which is when onbecameinvisible gets called
+    //unless theres some reason we want this delayed
     void OnBecameInvisible() {
+        //Destroy(gameObject);
         destroying = true;
     }
-    void killObstacle() {
+    //void killObstacle() {
         //wanna have like a particle emitter effect maybe?
-        Destroy(gameObject);
-    }
-    void OnTriggerEnter2D(Collider2D pc) {
+      //  Destroy(gameObject);
+    //}
+
+    //moved to a different script
+    /*void OnTriggerEnter2D(Collider2D pc) {
     //for the types that slow all players, will need to access all the players somehow
         if (pc.CompareTag("Player")) {
             RunnerBehavior rb = pc.GetComponent<RunnerBehavior>();
@@ -39,7 +46,7 @@ public class SpawnablesController : MonoBehaviour {
             // need the name of the script for this to work right
             if (breakable && rb.Dashing())
             {
-                killObstacle();
+                Destroy(gameObject);
             }
             else if (jumpable)
             {
@@ -59,5 +66,5 @@ public class SpawnablesController : MonoBehaviour {
             //     player.GetComponent<RunnerBehavior>().Knockback(knockbackDistance);
             // }
         }
-    }
+    }*/
 }

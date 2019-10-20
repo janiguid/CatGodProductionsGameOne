@@ -96,6 +96,9 @@ public class RunnerBehavior : MonoBehaviour
     public void Kill()
     {
         alive = false;
+        ObstacleController oc = GameObject.FindGameObjectWithTag("Spawner").GetComponent<ObstacleController>();
+        Debug.Log(RunnerID());
+        oc.trackDestroyed(RunnerID());
     }
     public void Resurrect()
     {
@@ -408,6 +411,7 @@ public class RunnerBehavior : MonoBehaviour
             || health <= 0)
         {
             Kill();
+            enabled = false;
         }
         if (Alive())
         {

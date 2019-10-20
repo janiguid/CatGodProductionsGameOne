@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class FinishLine : MonoBehaviour
             //scenes not built yet tho lol
             //probably want some kinda in between animation that changes scene on animation end
             //anyways use this
-            //SceneManager.LoadScene("EndGame");
+            SceneManager.LoadScene("End Scene");
         }
     }
 }

@@ -1817,7 +1817,7 @@ GameObject:
   - component: {fileID: 1602178048}
   m_Layer: 0
   m_Name: ObjectSpawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1834,18 +1834,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d606e81baec7ae4392d7bd44c72cc42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackSize: 10
-  spawnInterval: 0.5
-  currentSpeed: 5
+  trackSize: 30
+  spawnInterval: 0.75
+  speedIncrement: 0.5
+  baseSpeed: 3
+  maxSpeed: 6
   generatableObjects:
   - {fileID: 5001145870538275734, guid: 687a155c8dce67345aab7f9aa2d3a567, type: 3}
   - {fileID: 5001145870538275734, guid: 20ca3eabc98cc574dae9c4e5d7ddc06b, type: 3}
+  - {fileID: 5001145870538275734, guid: 9496446f050238144a09c29ed22e3c1c, type: 3}
   finishLine: {fileID: 5001145870538275734, guid: f4c153021e276ef4c9d88f62cca9c6ee,
     type: 3}
   generatableObjectWeights:
   - 3
   - 3
-  - 9
+  - 2
+  - 12
   spawnpoints:
   - {x: 12, y: 4.5}
   - {x: 12, y: 1.8}
