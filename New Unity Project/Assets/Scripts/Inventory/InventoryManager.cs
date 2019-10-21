@@ -6,9 +6,9 @@ public class InventoryManager : MonoBehaviour
 {
     /*
      * Controls as of right now:
-     * P1: shift is q, left is o and right is p
-     * P2: shift is a, left is k and right is l
-     * P3: shift is z, left is n and right is m
+     * Left = Left Bumper
+     * Right = Right Bumper
+     * Use Item = A
      */
 
     public RunnerInventory[] Inventories;
@@ -58,13 +58,25 @@ public class InventoryManager : MonoBehaviour
     // player's input
     void Update()
     {
-        for(int i = 0; i < Inventories.Length; ++i)
+        //for(int i = 0; i < Inventories.Length; ++i)
+        //{
+        //    Inventories[i].UpdateInput(
+        //        Input.GetButton(controls[i][0]),
+        //        Input.GetButtonDown(controls[i][1]),
+        //        Input.GetButtonDown(controls[i][2]),
+        //        Input.GetButtonDown(controls[i][3]));
+        //}
+
+        for (int i = 0; i < Inventories.Length; ++i)
         {
             Inventories[i].UpdateInput(
-                Input.GetButton(controls[i][0]),
+                true,
                 Input.GetButtonDown(controls[i][1]),
                 Input.GetButtonDown(controls[i][2]),
                 Input.GetButtonDown(controls[i][3]));
+            print(i + " " + Input.GetButtonDown(controls[i][1]) + " " + Input.GetButtonDown(controls[i][2]));
+            
         }
+        
     }
 }

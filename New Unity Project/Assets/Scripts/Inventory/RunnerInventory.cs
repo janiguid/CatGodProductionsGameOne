@@ -24,7 +24,8 @@ public class RunnerInventory : MonoBehaviour
     public void UpdateInput(bool Swapping, bool Left, bool Right, bool Use)
     {
         //I'm using item count because I can't check if a list is null
-        if (MyData.ItemCount == 0) return;
+        //if (MyData.ItemCount == 0) return;
+        if (MyData.ItemList.Count == 0) return;
         //if (Use)
         //{
         //    UseItem();
@@ -73,7 +74,7 @@ public class RunnerInventory : MonoBehaviour
     //elements to the right
     public void SwitchRight()
     {
-        
+        print("switch right");
         GameObject temp = ItemList[ItemList.Count - 1];
 
         for(int i = ItemList.Count - 1; i != 0; --i)
@@ -90,6 +91,7 @@ public class RunnerInventory : MonoBehaviour
     //elements to the right
     public void SwitchLeft()
     {
+        print("switch left");
         GameObject temp = ItemList[0];
 
         for (int i = 0; i < ItemList.Count - 1; ++i)
