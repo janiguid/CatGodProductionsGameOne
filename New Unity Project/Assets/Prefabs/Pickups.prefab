@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6145056953230023462}
   m_Layer: 0
   m_Name: Pickups
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,9 +146,11 @@ MonoBehaviour:
   speed: 1
   spawnpointCount: 5
   jumpable: 0
+  destroying: 0
   knockbackDistance: 0
   damage: 0
   breakable: 0
+  lane: 0
 --- !u!114 &6145056953230023462
 MonoBehaviour:
   m_ObjectHideFlags: 0

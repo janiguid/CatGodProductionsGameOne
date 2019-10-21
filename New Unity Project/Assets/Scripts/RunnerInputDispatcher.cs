@@ -29,14 +29,14 @@ public class RunnerInputDispatcher : MonoBehaviour
             "P3 Vertical",
             "P3 Jump",
             "P3 Dash"
-        },
+        }/* ,
         new string[]
         {
             "P4 Horizontal",
             "P4 Vertical",
             "P4 Jump",
             "P4 Dash"
-        }
+        }*/
     };
 
     private RunnerManagerBehavior rmb;
