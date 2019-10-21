@@ -145,6 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   spawnpointCount: 3
+  jumpable: 1
+  knockbackDistance: 0
+  damage: 0
 --- !u!114 &6980851088840885088
 MonoBehaviour:
   m_ObjectHideFlags: 0

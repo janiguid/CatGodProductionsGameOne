@@ -6,7 +6,7 @@ using UnityEngine;
 public class RunnerInputDispatcher : MonoBehaviour
 {
     private enum Controls {X, Y, Jump, Dash}
-    public int keyboardIsFor = 1;
+    public int keyboardIsFor = 0;
     private static readonly string[][] controls =
     {
         new string[]
