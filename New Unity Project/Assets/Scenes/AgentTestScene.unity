@@ -1846,10 +1846,10 @@ MonoBehaviour:
   finishLine: {fileID: 5001145870538275734, guid: f4c153021e276ef4c9d88f62cca9c6ee,
     type: 3}
   generatableObjectWeights:
-  - 3
+  - 8
   - 3
   - 2
-  - 12
+  - 16
   spawnpoints:
   - {x: 12, y: 4.5}
   - {x: 12, y: 1.8}
