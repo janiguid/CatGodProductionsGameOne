@@ -13,8 +13,9 @@ public class P4ProjectileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 look = new Vector3(moveTo, transform.position.y, transform.position.z);
-        transform.LookAt(look);
+        //Vector3 look = new Vector3(moveTo, transform.position.y, 0);
+        //transform.LookAt(look);
+        transform.Rotate(0,0,90);
     }
 
     // Update is called once per frame
@@ -30,8 +31,7 @@ public class P4ProjectileController : MonoBehaviour
         }
         else {
             if (moveTo > transform.position.x) {
-                transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, 
-                    transform.position.y, transform.position.z);
+                transform.Translate(new Vector3(0, -1, 0) * Time.deltaTime * speed);
             }
             else {
                 collide = true;

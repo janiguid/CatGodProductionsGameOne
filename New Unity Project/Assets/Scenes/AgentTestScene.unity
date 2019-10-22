@@ -362,7 +362,7 @@ PrefabInstance:
     - target: {fileID: 8954689725851339166, guid: a919580644316b547840f7ef240aa37d,
         type: 3}
       propertyPath: projectileSpeed
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a919580644316b547840f7ef240aa37d, type: 3}
@@ -1931,7 +1931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1602178048
 MonoBehaviour:
   m_ObjectHideFlags: 0
