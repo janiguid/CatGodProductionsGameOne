@@ -7,7 +7,7 @@ public class ProgressTracker : MonoBehaviour
 {
     [SerializeField]
     private Slider ProgressBar;
-
+    public ObstacleController controller;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +19,8 @@ public class ProgressTracker : MonoBehaviour
     {
         if(ProgressBar.value < ProgressBar.maxValue)
         {
-            ProgressBar.value += Time.deltaTime;
+            //ProgressBar.value += controller.GetTime();
+            Mathf.SmoothStep(ProgressBar.value, ProgressBar.value += controller.GetTime(), 0f);
         }
         
     }

@@ -188,6 +188,13 @@ public class ObstacleController : MonoBehaviour
         track[track.Count - 1].increaseInt(3);
 
     }
+
+
+    public float GetTime()
+    {
+        return currentSpeed * Time.deltaTime ;
+    }
+
     //spawn from the spawns object
     private void SpawnObject(Spawns sp)
     {
@@ -204,6 +211,7 @@ public class ObstacleController : MonoBehaviour
     {
 
         if (timer > 0) {
+            print(timer);
             timer -= Time.deltaTime;
         }
         else {
