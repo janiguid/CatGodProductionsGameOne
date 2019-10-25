@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BoulderObstacle : MonoBehaviour {
+    public AudioSource audio;
+
 
     //this needs to be in a separate script cuz of the pickup scripts
     void OnTriggerEnter2D(Collider2D pc)
@@ -16,7 +18,13 @@ public class BoulderObstacle : MonoBehaviour {
             // need the name of the script for this to work right
             if (sc.breakable && rb.Dashing())
             {
-                Destroy(gameObject);
+                print("this bitch triggered me: " + pc.name);
+                if(audio.isPlaying == false)
+                {
+                    audio.Play();
+                }
+
+                Destroy(gameObject, audio.clip.length - 0.55f);
             }
             else if (sc.jumpable)
             {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class SelectionManager : MonoBehaviour
 
     public List<PlayerInfo> playerInfos;
 
+    private int ReadyPlayers = 0;
     private static readonly string[][] controls =
 {
         new string[]
@@ -142,6 +144,8 @@ public class SelectionManager : MonoBehaviour
         {
 
             if (playerInfos[j].GetPlayerNumber() == -5 || playerInfos[j].Selected()) continue;
+
+            //switch border to right
             if (Input.GetAxis(controls[j][0]) > 0)
             {
                 if(playerInfos[j].GetMove() == false && playerInfos[j].Index < 3)
@@ -154,6 +158,8 @@ public class SelectionManager : MonoBehaviour
 
             }
 
+
+            //switch border to left
             if (Input.GetAxis(controls[j][0]) < 0)
             {
                 print(playerInfos[j].Index);
@@ -167,17 +173,27 @@ public class SelectionManager : MonoBehaviour
 
             }
 
+            //set it so the joystick needs to return to default value
+            //before user can go left or right again
             if (Input.GetAxis(controls[j][0]) == 0)
             {
                 playerInfos[j].SetMove(false);
             }
 
+            //player has chosen the character
             if (Input.GetButtonDown(controls[j][3]) && playerInfos[j].GetPlayerNumber() != -5 && playerInfos[j].Selected() == false)
             {
                 print("attached the sprite");
+                ++ReadyPlayers;
                 PlayerDatas[j].PlayerSprite = SpriteList[playerInfos[j].Index];
                 playerInfos[j].SetSelected(true);
                 PlayerDatas[j].CharacterNumber = playerInfos[j].Index;
+            }
+
+            //if all players are ready, load next scene
+            if(ReadyPlayers == 3)
+            {
+                SceneManager.LoadScene(2);
             }
 
         }

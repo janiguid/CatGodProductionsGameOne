@@ -20,7 +20,7 @@ public class ProgressTracker : MonoBehaviour
         if(ProgressBar.value < ProgressBar.maxValue)
         {
             //ProgressBar.value += controller.GetTime();
-            Mathf.SmoothStep(ProgressBar.value, ProgressBar.value += controller.GetTime(), 0f);
+            Mathf.SmoothStep(ProgressBar.value, ProgressBar.value += controller.GetTime()*3.25f, 0f);
         }
         
     }

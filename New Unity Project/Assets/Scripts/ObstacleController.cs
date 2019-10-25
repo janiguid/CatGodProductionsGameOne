@@ -211,7 +211,6 @@ public class ObstacleController : MonoBehaviour
     {
 
         if (timer > 0) {
-            print(timer);
             timer -= Time.deltaTime;
         }
         else {

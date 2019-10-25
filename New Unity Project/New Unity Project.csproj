@@ -625,6 +625,7 @@
     <Compile Include="Assets\Scriptable Objects\Inventory\InventoryData.cs" />
     <Compile Include="Assets\Scriptable Objects\Inventory\InventoryResetter.cs" />
     <Compile Include="Assets\Scriptable Objects\Player Information\PlayerData.cs" />
+    <Compile Include="Assets\Scriptable Objects\SoundSO.cs" />
     <Compile Include="Assets\Scripts\BoulderObstacle.cs" />
     <Compile Include="Assets\Scripts\Character Selection Screen\SelectionManager.cs" />
     <Compile Include="Assets\Scripts\FinishLine.cs" />
