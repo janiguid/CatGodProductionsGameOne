@@ -29,7 +29,7 @@ public class SpawnablesController : MonoBehaviour {
     //this can just be done as soon as they're offscreen which is when onbecameinvisible gets called
     //unless theres some reason we want this delayed
     void OnBecameInvisible() {
-        //Destroy(gameObject);
+        // Destroy(gameObject);
         destroying = true;
     }
     //void killObstacle() {
@@ -67,4 +67,9 @@ public class SpawnablesController : MonoBehaviour {
             // }
         }
     }*/
+    public void Break() {
+        if (breakable) {
+            Destroy(gameObject);
+        }
+    }
 }

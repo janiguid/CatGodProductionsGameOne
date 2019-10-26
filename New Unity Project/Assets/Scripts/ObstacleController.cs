@@ -28,6 +28,7 @@ public class ObstacleController : MonoBehaviour
     //the last weight is the chance for nothing to spawn
     //specify tracksize only
     public GameObject[] generatableObjects;
+    public GameObject[] pickups;
     public GameObject finishLine;
     public float[] generatableObjectWeights;
     public Vector2[] spawnpoints;
@@ -196,14 +197,16 @@ public class ObstacleController : MonoBehaviour
     }
 
     //spawn from the spawns object
-    private void SpawnObject(Spawns sp)
+    private GameObject SpawnObject(Spawns sp)
     {
         if (living_lanes[sp.spawnpoint])
         {
             GameObject obs = Instantiate(generatableObjects[sp.generated], spawnpoints[sp.spawnpoint], Quaternion.identity);
             obs.GetComponent<SpawnablesController>().speed = currentSpeed;
             obs.GetComponent<SpawnablesController>().lane = sp.spawnpoint;
+            return obs;
         }
+        return null;
     }
 
     // Update is called once per frame
@@ -226,7 +229,8 @@ public class ObstacleController : MonoBehaviour
                 //pickups get fancy logic to account for track destruction
                     do
                     {
-                        SpawnObject(temp);
+                        GameObject obs = SpawnObject(temp);
+                        obs.GetComponent<Pickups>().SetPickups(pickups);
                         temp = track[trackIndex++];
                     } while (temp.generated == pickupID);
                     trackIndex--;

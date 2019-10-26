@@ -7,14 +7,15 @@ public class P4ProjectileController : MonoBehaviour
     public float speed = 10.0f;
     public float damage = 1.5f;
     public Vector3 moveTo; 
-    
+    public Animator animator;
     private float initF = 10f;
     private float maxScalingSpeed;
     private float currScale;
     private float initScale;
     private Vector3 newScale = new Vector3(1.5f, 1.5f, 1f);
-    private int frames = 5;
+    private int frames = 10;
     private bool collide = false;
+    private bool collide2 = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class P4ProjectileController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (collide) {
+        if (collide2) {
             if (frames < 0) {
                 Destroy(gameObject);
             }
@@ -49,6 +50,8 @@ public class P4ProjectileController : MonoBehaviour
             }
             else {
                 collide = true;
+                collide2 = true;
+                animator.SetBool("collidable", true);
             }
         }
         
@@ -56,7 +59,7 @@ public class P4ProjectileController : MonoBehaviour
     void OnTriggerStay2D(Collider2D pc) {
         if (collide && pc.CompareTag("Player")) {
             pc.GetComponent<RunnerBehavior>().AerialDamage(damage);
-            Destroy(gameObject);
+            collide = false;
         }
     }
     
