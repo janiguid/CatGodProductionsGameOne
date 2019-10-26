@@ -39,6 +39,9 @@ public class RunnerBehavior : MonoBehaviour
     private float health;
     private SpriteRenderer rend;
 
+
+    public HealthUI MyHealthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -341,11 +344,13 @@ public class RunnerBehavior : MonoBehaviour
         if (!jumping)
         {
             health -= amount;
+            MyHealthBar.UpdateHealthUI((int)health);
         }
     }
     public void AerialDamage(float amount)
     {
         health -= amount;
+        MyHealthBar.UpdateHealthUI((int)health);
     }
 
     void FixedUpdate()
@@ -615,5 +620,6 @@ public class RunnerBehavior : MonoBehaviour
     {
         health += h;
         if (health > maxHealth) health = maxHealth;
+        MyHealthBar.UpdateHealthUI((int)health);
     }
 }

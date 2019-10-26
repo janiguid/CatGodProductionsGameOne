@@ -627,9 +627,11 @@
     <Compile Include="Assets\Scriptable Objects\Player Information\PlayerData.cs" />
     <Compile Include="Assets\Scriptable Objects\SoundSO.cs" />
     <Compile Include="Assets\Scripts\BoulderObstacle.cs" />
+    <Compile Include="Assets\Scripts\Breaker.cs" />
     <Compile Include="Assets\Scripts\Character Selection Screen\SelectionManager.cs" />
     <Compile Include="Assets\Scripts\FinishLine.cs" />
     <Compile Include="Assets\Scripts\Gameplay\GameStarter.cs" />
+    <Compile Include="Assets\Scripts\healthup.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryUIManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\RunnerInventory.cs" />
@@ -648,6 +650,7 @@
     <Compile Include="Assets\Scripts\SpawnablesController.cs" />
     <Compile Include="Assets\Scripts\SpikeObstacle.cs" />
     <Compile Include="Assets\Scripts\StampController.cs" />
+    <Compile Include="Assets\Scripts\UI\HealthUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
