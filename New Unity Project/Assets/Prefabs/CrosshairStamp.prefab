@@ -94,7 +94,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.25
+  selfDestructDelay: 0.75
   speed: 3
   damage: 1
+  spawnpoint: {x: -10, y: 0, z: 10}
   Projectile: {fileID: 5001145870538275734, guid: 7366b8273c32cc94bb61f448af1e758e,
     type: 3}

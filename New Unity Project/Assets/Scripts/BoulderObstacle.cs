@@ -31,15 +31,14 @@ public class BoulderObstacle : MonoBehaviour {
                 rb.Knockback(sc.knockbackDistance);
                 rb.Damage(sc.damage);
                 //need to find object with obstacle controller
-                ObstacleController spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<ObstacleController>();
-                spawner.modSpeed(spawner.baseSpeed);
+                // ObstacleController spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<ObstacleController>();
+                // spawner.modSpeed(spawner.baseSpeed);
             }
             else
             {
                 rb.AerialKnockback(sc.knockbackDistance);
                 rb.AerialDamage(sc.damage);
-                ObstacleController spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<ObstacleController>();
-                spawner.modSpeed(spawner.baseSpeed);
+                
             }
             // Debug.Log("Knocked back " + knockbackDistance);
             // if the obstacle knocks back or did something to all the players --> grab all the tagged players 

@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class P4ProjectileController : MonoBehaviour
 {
-    public float speed = 2.0f;
-    public float damage = 1.0f;
-    public float moveTo; 
+    public float speed = 10.0f;
+    public float damage = 1.5f;
+    public Vector3 moveTo; 
     
+    private float initF = 10f;
+    private float maxScalingSpeed;
+    private float currScale;
+    private float initScale;
+    private Vector3 newScale = new Vector3(1.5f, 1.5f, 1f);
     private int frames = 5;
     private bool collide = false;
     // Start is called before the first frame update
@@ -15,11 +20,14 @@ public class P4ProjectileController : MonoBehaviour
     {
         //Vector3 look = new Vector3(moveTo, transform.position.y, 0);
         //transform.LookAt(look);
-        transform.Rotate(0,0,90);
+        maxScalingSpeed = ((transform.localScale.x - newScale.x) * speed) /( 2.4f *  (Mathf.Abs(transform.position.x - moveTo.x)));
+        maxScalingSpeed *= maxScalingSpeed;
+        currScale = 0.01f;
+        initScale = transform.localScale.x;
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (collide) {
             if (frames < 0) {
@@ -30,8 +38,14 @@ public class P4ProjectileController : MonoBehaviour
             }
         }
         else {
-            if (moveTo > transform.position.x) {
-                transform.Translate(new Vector3(0, -1, 0) * Time.deltaTime * speed);
+            if (moveTo.x > transform.position.x) {
+                // transform.Translate(new Vector3(1, 0, -1) * Time.deltaTime * speed);
+                currScale += 0.012f * maxScalingSpeed;
+                transform.localScale = Vector3.Lerp(transform.localScale, newScale, Mathf.Sqrt(currScale) * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, moveTo, Time.deltaTime * 
+                    // (speed * (initScale - transform.localScale.x) / transform.localScale.x));
+                    speed);
+                
             }
             else {
                 collide = true;

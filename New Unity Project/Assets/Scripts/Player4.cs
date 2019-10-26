@@ -7,8 +7,6 @@ public class Player4 : MonoBehaviour
 {
     public float weaponTimer = 3.0f;
     public float impactDelay = 0.25f;
-    public float projectileSpeed = 3.0f;
-    public float projectileDamage = 1.0f;
     public bool skipNextShot;
     public Vector2 cursorStart;
     private Rigidbody2D rbody;
@@ -57,8 +55,6 @@ public class Player4 : MonoBehaviour
                 //after delay a projectile will spawn from off screen (the furthest corner) and impact here
                 StampController sc = stamp.GetComponent<StampController>();
                 sc.delay = impactDelay;
-                sc.speed = projectileSpeed;
-                sc.damage = projectileDamage;
                 timer = weaponTimer;
             }    
         }

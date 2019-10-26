@@ -7,6 +7,7 @@ public class RunnerBehavior : MonoBehaviour
 {
     private RunnerManagerBehavior manager = null;
     private RunnerInputReceiver input = null;
+    private ObstacleController spawner = null;
     private int runnerID = -1;
     private int destinationTrack = -1;
     public bool alive = true;
@@ -51,6 +52,7 @@ public class RunnerBehavior : MonoBehaviour
         input = gameObject.GetComponent<RunnerInputReceiver>();
         initialScale = gameObject.transform.localScale*0.8f;
         rend = GetComponent<SpriteRenderer>();
+        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<ObstacleController>();
     }
 
     /*  --GrantRunnerID--
@@ -325,12 +327,14 @@ public class RunnerBehavior : MonoBehaviour
         if (!jumping)
         {
             disadvantage += amount;
+            spawner.modSpeed(spawner.baseSpeed);
         }
         //body.AddForce(amount*Vector2.left, ForceMode2D.Impulse);
     }
     public void AerialKnockback(float amount)
     {
         disadvantage += amount;
+        spawner.modSpeed(spawner.baseSpeed);
     }
     public void Damage(float amount)
     {

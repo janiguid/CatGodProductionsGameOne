@@ -6,9 +6,7 @@ public class StampController : MonoBehaviour
 {
     public float delay = 0.25f;
     public float selfDestructDelay = 0.75f;
-    public float speed = 3.0f;
-    public float damage = 1.0f;
-    public Vector3 spawnpoint = new Vector3(-10, 0, 0);
+    public Vector3 spawnpoint = new Vector3(-10, 0, 10);
     private float timer;
     private float lifespan;
     private bool spawned = false;
@@ -39,12 +37,11 @@ public class StampController : MonoBehaviour
             // spawnpoint.x = (Mathf.Round(spawnpoint.x) - 1 ) * (-1);
             // spawnpoint.y = (Mathf.Round(spawnpoint.y) - 1 ) * (-1);
             spawnpoint.y = transform.position.y;
+            //spawnpoint.x = transform.position.x - 15;
             GameObject proj = Instantiate(Projectile, spawnpoint, Quaternion.identity);
             //gotta send this object the stamps position
             P4ProjectileController pc = proj.GetComponent<P4ProjectileController>();
-            pc.speed = speed;
-            pc.damage = damage;
-            pc.moveTo = transform.position.x;
+            pc.moveTo = new Vector3(transform.position.x + (gameObject.GetComponent<Renderer>().bounds.size.x/2f), transform.position.y, transform.position.z);
             timer = selfDestructDelay;
         }
         

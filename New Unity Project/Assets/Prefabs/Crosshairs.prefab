@@ -117,9 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponTimer: 3
   impactDelay: 0.25
-  projectileSpeed: 3
+  projectileSpeed: 25
+  projectileDamage: 1
   skipNextShot: 0
   cursorStart: {x: 2, y: 3}
-  playAreaYOffset: 0
   CrosshairStamp: {fileID: 5001145870538275734, guid: 1d99d055ee7b50c48bb49df0965574ef,
     type: 3}

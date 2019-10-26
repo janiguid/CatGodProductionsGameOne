@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5001145870538275734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.3769, y: 0.6341, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.25, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -146,9 +146,11 @@ MonoBehaviour:
   speed: 1
   spawnpointCount: 3
   jumpable: 1
+  destroying: 0
   knockbackDistance: 2
   damage: 2
   breakable: 0
+  lane: 0
 --- !u!114 &-6252212720033304800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,3 +163,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e323ee3f5e53cd14ea14a6b1ea49e768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 0}
