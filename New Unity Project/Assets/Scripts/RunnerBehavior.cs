@@ -22,8 +22,8 @@ public class RunnerBehavior : MonoBehaviour
     private static readonly float dashCutoff = 2.0f;
     public float remainingJumpDuration = 0.0f;
     private float remainingDashDuration = 0.0f;
-    private static readonly float forwardRange = 12.0f;
-    private static readonly float backwardRange = 3.0f;
+    private static readonly float forwardRange = 8.0f;
+    private static readonly float backwardRange = 8.0f;
     private static readonly float
         percentHorizontalAttractiveForce = 2.0f;
     private static readonly float
@@ -315,7 +315,7 @@ public class RunnerBehavior : MonoBehaviour
         The runner will be drawn toward this point. */
     public float AttractionPointX()
     {
-        float x = manager.NeutralX(runnerID);
+        float x = transform.position.x;
         return x + horizontalEffort - disadvantage;
     }
     public float AttractionPointY()
