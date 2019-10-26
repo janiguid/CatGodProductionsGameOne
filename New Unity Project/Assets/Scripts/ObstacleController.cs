@@ -218,7 +218,16 @@ public class ObstacleController : MonoBehaviour
                         {
                         obs.GetComponent<Pickups>().SetPickups(pickups);
                         }
-                        temp = track[trackIndex++];
+                        if (trackIndex + 1 < track.Count)
+                        {
+                            temp = track[trackIndex++];
+
+                        }
+                        else
+                        {
+                            trackIndex++;
+                            break;
+                        }
                     } while (temp.generated == pickupID);
                     trackIndex--;
                     temp = track[trackIndex];

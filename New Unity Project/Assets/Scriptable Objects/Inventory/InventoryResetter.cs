@@ -11,6 +11,7 @@ public class InventoryResetter : MonoBehaviour
     {
         for(int i= 0; i < inventoryDatas.Length; ++i)
         {
+            inventoryDatas[i].ItemList.Clear();
             inventoryDatas[i].refreshed = false;
         }
     }

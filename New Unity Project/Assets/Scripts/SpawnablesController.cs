@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class SpawnablesController : MonoBehaviour {
     
@@ -31,6 +33,11 @@ public class SpawnablesController : MonoBehaviour {
     void OnBecameInvisible() {
         // Destroy(gameObject);
         destroying = true;
+        if (gameObject.GetComponent<FinishLine>() != null)
+        {
+            SceneManager.LoadScene("End Scene");
+
+        }
     }
    
     

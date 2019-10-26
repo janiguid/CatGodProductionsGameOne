@@ -34,13 +34,7 @@ public class BoulderObstacle : MonoBehaviour {
             // need the name of the script for this to work right
             if (sc.breakable && rb.Dashing())
             {
-                print("this bitch triggered me: " + pc.name);
-                if(audio.isPlaying == false)
-                {
-                    audio.Play();
-                }
-                collides = false;
-                Destroy(gameObject, audio.clip.length - 0.55f);
+                Break();
             }
             else if (sc.jumpable)
             {
@@ -63,6 +57,22 @@ public class BoulderObstacle : MonoBehaviour {
             // foreach (GameObject player in players) {
             //     player.GetComponent<RunnerBehavior>().Knockback(knockbackDistance);
             // }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D pc)
+    {
+        //for the types that slow all players, will need to access all the players somehow
+        if (collides && pc.CompareTag("Player"))
+        {
+            RunnerBehavior rb = pc.GetComponent<RunnerBehavior>();
+            // if the obstacle knocks back only one player
+            // need the name of the script for this to work right
+            if (sc.breakable && rb.Dashing())
+            {
+                Break();
+            }
+
         }
     }
 }

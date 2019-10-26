@@ -60,14 +60,15 @@ public class RunnerInventory : MonoBehaviour
     public void UseItem()
     {
         Debug.Log("used item");
-        GameObject item = Instantiate(ItemList[MyData.ItemCount - 1], PlayerSpawnPoint.position, Quaternion.identity);
+
+        GameObject item = Instantiate(ItemList[MyData.ItemList.Count - 1], PlayerSpawnPoint.position, Quaternion.identity);
         healthup hu = item.GetComponent<healthup>();
         //needs to set player if it's the healthup prefab
         if (hu != null) {
             hu.SetPlayer(transform.parent.gameObject);
         }
         //Instantiate game object
-        ItemList.RemoveAt(MyData.ItemCount - 1);
+        ItemList.RemoveAt(MyData.ItemList.Count - 1);
 
         
 

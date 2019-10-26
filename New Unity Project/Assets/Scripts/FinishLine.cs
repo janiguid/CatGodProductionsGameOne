@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D pc) {
+    void OnTriggerStay2D(Collider2D pc) {
     //for the types that slow all players, will need to access all the players somehow
-        if (pc.CompareTag("Player")) {
+        if (pc.CompareTag("Player") && pc.gameObject.GetComponent<RunnerBehavior>().alive) {
             //need some kinda logic to get to the endgame screen with a victory
             //scenes not built yet tho lol
             //probably want some kinda in between animation that changes scene on animation end
