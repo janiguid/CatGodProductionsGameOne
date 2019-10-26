@@ -1247,6 +1247,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1398098432839410562, guid: 7a4625b9ae55a9545bd32f1c03eb19bb,
         type: 3}
+    - target: {fileID: 3617958161001495584, guid: a6a89806682faff418e81b3739b85e42,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3617958161001495595, guid: a6a89806682faff418e81b3739b85e42,
         type: 3}
       propertyPath: MyHealthBar
@@ -2846,6 +2851,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1398098432839410562, guid: 7a4625b9ae55a9545bd32f1c03eb19bb,
         type: 3}
+    - target: {fileID: 3617958161001495584, guid: a6a89806682faff418e81b3739b85e42,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3617958161001495595, guid: a6a89806682faff418e81b3739b85e42,
         type: 3}
       propertyPath: MyHealthBar
@@ -4180,6 +4190,16 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3617958161001495584, guid: a6a89806682faff418e81b3739b85e42,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3617958161001495595, guid: a6a89806682faff418e81b3739b85e42,
+        type: 3}
+      propertyPath: MyHealthBar
+      value: 
+      objectReference: {fileID: 1147226327}
     - target: {fileID: 9005310583736924607, guid: a6a89806682faff418e81b3739b85e42,
         type: 3}
       propertyPath: MyData
@@ -4191,11 +4211,6 @@ PrefabInstance:
       propertyPath: PlayerSpawnPoint
       value: 
       objectReference: {fileID: 3617958159862822141}
-    - target: {fileID: 3617958161001495595, guid: a6a89806682faff418e81b3739b85e42,
-        type: 3}
-      propertyPath: MyHealthBar
-      value: 
-      objectReference: {fileID: 1147226327}
     m_RemovedComponents:
     - {fileID: 9005310583736924607, guid: a6a89806682faff418e81b3739b85e42, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a6a89806682faff418e81b3739b85e42, type: 3}

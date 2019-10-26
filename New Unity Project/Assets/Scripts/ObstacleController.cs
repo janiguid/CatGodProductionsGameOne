@@ -38,32 +38,19 @@ public class ObstacleController : MonoBehaviour
     private List<Spawns> track = new List<Spawns>(TRACK_DEFAULT_CAPACITY);
     private float timer;
     private int trackIndex = 0;
-    // private List<RunnerManagerBehavior> runman;
-    private RunnerManagerBehavior runman;
+    // private RunnerManagerBehavior runman;
 
-    //start inclusive, end not inclusive
-    // private int rouletteWheelSpawn(int start, int total) {
-    //     int ret = -1;
-    //     float r = Random.value * total;
-    //     for (int i = 1; i <= total; i++) {
-    //         if (r <= i) {
-    //             ret = i-1;
-    //             break;
+    // private List<Vector2> PrepareViableSpawnpoints() {
+    //     List<Vector2> ret = new List<Vector2>();
+    //     foreach (Vector2 v2 in spawnpoints)
+    //     {
+    //         if (runman.Alive(runman.TrackAt(v2.y)))
+    //         {
+    //             ret.Add(v2);
     //         }
     //     }
-    //     return ret + start;
+    //     return ret;
     // }
-    private List<Vector2> PrepareViableSpawnpoints() {
-        List<Vector2> ret = new List<Vector2>();
-        foreach (Vector2 v2 in spawnpoints)
-        {
-            if (runman.Alive(runman.TrackAt(v2.y)))
-            {
-                ret.Add(v2);
-            }
-        }
-        return ret;
-    }
     //sets speed to passed speed
     public void modSpeed(float speed) {
         var foundObjects = FindObjectsOfType<SpawnablesController>();
@@ -143,8 +130,7 @@ public class ObstacleController : MonoBehaviour
             generatableObjectWeights[i] = wSoFar / totalW;
         }
         timer = spawnInterval;
-        // runman = GameObject.FindGameObjectsWithTag("Player");
-        runman = FindObjectOfType<RunnerManagerBehavior>();
+        // runman = FindObjectOfType<RunnerManagerBehavior>();
         List<int> genSpawnpointCounts = new List<int>(15);
         for (int i = 0; i < generatableObjects.Length; i++) {
             GameObject toKill = Instantiate(generatableObjects[i], spawnpoints[0], Quaternion.identity);
@@ -160,12 +146,10 @@ public class ObstacleController : MonoBehaviour
                 if (r <= generatableObjectWeights[j]) {
                     objIndex = j;
                     if (genSpawnpointCounts[j] == 3) {
-                        // spIndex = rouletteWheelSpawn(0, 3);
                         spIndex = Random.Range(0, 3);
                         track.Add(new Spawns(objIndex, spIndex, 1, indTracker++));
                     }
                     else if (genSpawnpointCounts[j] == 2) {
-                        // spIndex = rouletteWheelSpawn(3, 2);
                         spIndex = Random.Range(3, 5);
                         track.Add(new Spawns(objIndex, spIndex, 1, indTracker++));
                     }
@@ -251,9 +235,6 @@ public class ObstacleController : MonoBehaviour
                 //spawn finish line
                 GameObject obs = Instantiate(finishLine, spawnpoints[1], Quaternion.identity);
                 obs.GetComponent<SpawnablesController>().speed = currentSpeed;
-                
-                //to test the new function to mod the speed of all objects on screen
-                //modSpeed(11);
                 enabled = false;
             }
         }

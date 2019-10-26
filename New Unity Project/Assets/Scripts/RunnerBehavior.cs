@@ -100,6 +100,9 @@ public class RunnerBehavior : MonoBehaviour
         Alive setters. */
     public void Kill()
     {
+        health = 0;
+        MyHealthBar.UpdateHealthUI((int)health);
+
         alive = false;
         ObstacleController oc = GameObject.FindGameObjectWithTag("Spawner").GetComponent<ObstacleController>();
         Debug.Log(RunnerID());
@@ -356,8 +359,8 @@ public class RunnerBehavior : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 vecdiff =
-            new Vector2(AttractionPointX(), AttractionPointY())
-          - new Vector2(gameObject.transform.position.x,
+            new Vector2(AttractionPointX(), AttractionPointY()) - 
+            new Vector2(gameObject.transform.position.x,
                         gameObject.transform.position.y);
         //body.AddForce(vecdiff*percentAttractiveForce/100,
           //  ForceMode2D.Impulse);

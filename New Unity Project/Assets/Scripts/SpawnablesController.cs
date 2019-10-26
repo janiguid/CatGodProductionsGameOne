@@ -32,40 +32,6 @@ public class SpawnablesController : MonoBehaviour {
         // Destroy(gameObject);
         destroying = true;
     }
-    //void killObstacle() {
-        //wanna have like a particle emitter effect maybe?
-      //  Destroy(gameObject);
-    //}
-
-    //moved to a different script
-    /*void OnTriggerEnter2D(Collider2D pc) {
-    //for the types that slow all players, will need to access all the players somehow
-        if (pc.CompareTag("Player")) {
-            RunnerBehavior rb = pc.GetComponent<RunnerBehavior>();
-            // if the obstacle knocks back only one player
-            // need the name of the script for this to work right
-            if (breakable && rb.Dashing())
-            {
-                Destroy(gameObject);
-            }
-            else if (jumpable)
-            {
-                rb.Knockback(knockbackDistance);
-                rb.Damage(damage);
-            }
-            else
-            {
-                rb.AerialKnockback(knockbackDistance);
-                rb.AerialDamage(damage);
-            }
-            // Debug.Log("Knocked back " + knockbackDistance);
-            // if the obstacle knocks back or did something to all the players --> grab all the tagged players 
-            // GameObject[] players;
-            // players = GameObject.FindGameObjectsWithTag("Player");
-            // foreach (GameObject player in players) {
-            //     player.GetComponent<RunnerBehavior>().Knockback(knockbackDistance);
-            // }
-        }
-    }*/
+   
     
 }
