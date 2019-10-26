@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: P3
   m_EditorClassIdentifier: 
   ItemList:
-  - {fileID: 5001145870538275734, guid: 20ca3eabc98cc574dae9c4e5d7ddc06b, type: 3}
-  - {fileID: 5001145870538275734, guid: 20ca3eabc98cc574dae9c4e5d7ddc06b, type: 3}
-  - {fileID: 6446403575216406, guid: 940e504814abcff4bb9977cb9b819b72, type: 3}
-  ItemCount: 3
+  - {fileID: 5111806321347074370, guid: cc6e7474040d13745b0a0e6e286e1eda, type: 3}
+  ItemCount: 1
   refreshed: 1

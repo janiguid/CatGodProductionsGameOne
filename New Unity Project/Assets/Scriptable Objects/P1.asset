@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2812721603789489ba811c2d9a2996, type: 3}
   m_Name: P1
   m_EditorClassIdentifier: 
-  ItemList:
-  - {fileID: 6446403575216406, guid: 940e504814abcff4bb9977cb9b819b72, type: 3}
-  - {fileID: 5111806321347074370, guid: 24bf656c3b3365a48a573b6ae560a852, type: 3}
-  - {fileID: 5674938796817770785, guid: f2a9818b0027c6c4887e68a1e3b366b0, type: 3}
-  InitialValues:
-  - {fileID: 6446403575216406, guid: 940e504814abcff4bb9977cb9b819b72, type: 3}
-  - {fileID: 5111806321347074370, guid: 24bf656c3b3365a48a573b6ae560a852, type: 3}
-  - {fileID: 5674938796817770785, guid: f2a9818b0027c6c4887e68a1e3b366b0, type: 3}
-  ItemCount: 3
+  ItemList: []
+  ItemCount: 0
   refreshed: 0

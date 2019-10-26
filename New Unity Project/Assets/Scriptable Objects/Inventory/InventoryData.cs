@@ -18,6 +18,7 @@ public class InventoryData : ScriptableObject
     {
         if (ItemList.Count > 3) return;
 
+        ItemCount++;
         ItemList.Add(item);
         refreshed = false;
     }

@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2812721603789489ba811c2d9a2996, type: 3}
   m_Name: P4
   m_EditorClassIdentifier: 
-  ItemList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ItemCount: 3
+  ItemList: []
+  ItemCount: 0
   refreshed: 0

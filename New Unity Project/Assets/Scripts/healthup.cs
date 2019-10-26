@@ -8,7 +8,7 @@ public class healthup : MonoBehaviour
     public float heals = 1;
     private RunnerBehavior rb = null;
     private float killTimer = 0.25f;
-    private bool effectComplete = false;
+    private bool effectIncomplete = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +20,10 @@ public class healthup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (effectComplete && rb != null ) 
+        if (effectIncomplete && rb != null ) 
         {
             rb.RecoverHealth(heals);
-            effectComplete = true;
+            effectIncomplete = false;
         }
         if (killTimer > 0) 
         {
