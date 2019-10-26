@@ -230,7 +230,10 @@ public class ObstacleController : MonoBehaviour
                     do
                     {
                         GameObject obs = SpawnObject(temp);
+                        if (obs != null) 
+                        {
                         obs.GetComponent<Pickups>().SetPickups(pickups);
+                        }
                         temp = track[trackIndex++];
                     } while (temp.generated == pickupID);
                     trackIndex--;

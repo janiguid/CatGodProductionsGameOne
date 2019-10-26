@@ -67,9 +67,5 @@ public class SpawnablesController : MonoBehaviour {
             // }
         }
     }*/
-    public void Break() {
-        if (breakable) {
-            Destroy(gameObject);
-        }
-    }
+    
 }

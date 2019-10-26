@@ -27,11 +27,11 @@ public class Breaker : MonoBehaviour
 
     }
 
-    void OnTriggerStay2D(Collider2D obs) 
+    void OnTriggerEnter2D(Collider2D obs) 
     {
         if (obs.CompareTag("Obstacle")) 
         {
-            obs.GetComponent<SpawnablesController>().Break();
+            obs.GetComponent<BoulderObstacle>().Break();
         }
     }
 
